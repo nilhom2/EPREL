@@ -1,0 +1,760 @@
+2025-10-16 13:17:14 - INFO: EPREL sync script started
+2025-10-16 13:17:14 - INFO: 1. Download EPREL data
+2025-10-16 13:17:14 - INFO: Deleting old zips and folders
+2025-10-16 13:17:14 - INFO: Downloading EPREL product group ZIPs
+2025-10-16 13:17:14 - INFO: Downloading product group: electronicdisplays
+2025-10-16 13:17:14 - DEBUG: API Call - Endpoint: exportProducts/electronicdisplays
+2025-10-16 13:17:14 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 1,
+    "itemLimit": 99999999,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 5,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": false,
+    "fileOutput": {
+        "filetype": "zip",
+        "filetypeHeader": "application\/zip",
+        "filename": "electronicdisplays",
+        "folderPath": "E:\\Webdaten\\EPREL_Public\\zips"
+    }
+}
+2025-10-16 13:17:14 - INFO: Saving file to E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:17:14 - INFO: Response size: 11684441 bytes
+2025-10-16 13:17:14 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:17:14 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:17:15 - INFO: Downloading product group: televisions
+2025-10-16 13:17:15 - DEBUG: API Call - Endpoint: exportProducts/televisions
+2025-10-16 13:17:15 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 1,
+    "itemLimit": 99999999,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 5,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": false,
+    "fileOutput": {
+        "filetype": "zip",
+        "filetypeHeader": "application\/zip",
+        "filename": "televisions",
+        "folderPath": "E:\\Webdaten\\EPREL_Public\\zips"
+    }
+}
+2025-10-16 13:17:15 - INFO: Saving file to E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:17:15 - INFO: Response size: 2040888 bytes
+2025-10-16 13:17:15 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:17:15 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:17:15 - INFO: 2. Process EPREL data
+2025-10-16 13:17:15 - INFO: Unzipping downloaded files
+2025-10-16 13:17:15 - DEBUG: Unzipping E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:17:15 - DEBUG: Finished unzipping E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:17:15 - DEBUG: Unzipping E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:17:15 - DEBUG: Finished unzipping E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:17:15 - INFO: Processing unzipped JSON files
+2025-10-16 13:17:15 - DEBUG: Reducing E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json → E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json_reduced.json
+2025-10-16 13:17:18 - DEBUG: Reducing E:\Webdaten\EPREL_Public\zips/televisions/televisions_1.json → E:\Webdaten\EPREL_Public\zips/televisions/televisions_1.json_reduced.json
+2025-10-16 13:17:18 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:17:18 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:28:45 - INFO: EPREL sync script started
+2025-10-16 13:28:45 - INFO: 1. Download EPREL data
+2025-10-16 13:28:45 - INFO: Deleting old zips and folders
+2025-10-16 13:28:45 - INFO: Downloading EPREL product group ZIPs
+2025-10-16 13:28:45 - INFO: Downloading product group: electronicdisplays
+2025-10-16 13:28:45 - DEBUG: API Call - Endpoint: exportProducts/electronicdisplays
+2025-10-16 13:28:45 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 1,
+    "itemLimit": 99999999,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 5,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": false,
+    "fileOutput": {
+        "filetype": "zip",
+        "filetypeHeader": "application\/zip",
+        "filename": "electronicdisplays",
+        "folderPath": "E:\\Webdaten\\EPREL_Public\\zips"
+    }
+}
+2025-10-16 13:28:45 - INFO: Saving file to E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:28:45 - INFO: Response size: 11684441 bytes
+2025-10-16 13:28:45 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:28:45 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:28:46 - INFO: Downloading product group: televisions
+2025-10-16 13:28:46 - DEBUG: API Call - Endpoint: exportProducts/televisions
+2025-10-16 13:28:46 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 1,
+    "itemLimit": 99999999,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 5,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": false,
+    "fileOutput": {
+        "filetype": "zip",
+        "filetypeHeader": "application\/zip",
+        "filename": "televisions",
+        "folderPath": "E:\\Webdaten\\EPREL_Public\\zips"
+    }
+}
+2025-10-16 13:28:46 - INFO: Saving file to E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:28:46 - INFO: Response size: 2040888 bytes
+2025-10-16 13:28:46 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:28:46 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:28:46 - INFO: 2. Process EPREL data
+2025-10-16 13:28:46 - INFO: Unzipping downloaded files
+2025-10-16 13:28:46 - DEBUG: Unzipping E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:28:46 - DEBUG: Finished unzipping E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:28:46 - DEBUG: Unzipping E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:28:46 - DEBUG: Finished unzipping E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:28:46 - INFO: Processing unzipped JSON files
+2025-10-16 13:28:46 - DEBUG: Reducing E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json → E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json_reduced.json
+2025-10-16 13:28:49 - DEBUG: Reducing E:\Webdaten\EPREL_Public\zips/televisions/televisions_1.json → E:\Webdaten\EPREL_Public\zips/televisions/televisions_1.json_reduced.json
+2025-10-16 13:28:49 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:28:49 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:31:02 - INFO: EPREL sync script started
+2025-10-16 13:31:02 - INFO: 1. Download EPREL data
+2025-10-16 13:31:02 - INFO: Deleting old zips and folders
+2025-10-16 13:31:02 - INFO: Downloading EPREL product group ZIPs
+2025-10-16 13:31:02 - INFO: Downloading product group: electronicdisplays
+2025-10-16 13:31:02 - DEBUG: API Call - Endpoint: exportProducts/electronicdisplays
+2025-10-16 13:31:02 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 1,
+    "itemLimit": 99999999,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 5,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": false,
+    "fileOutput": {
+        "filetype": "zip",
+        "filetypeHeader": "application\/zip",
+        "filename": "electronicdisplays",
+        "folderPath": "E:\\Webdaten\\EPREL_Public\\zips"
+    }
+}
+2025-10-16 13:31:03 - INFO: Saving file to E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:31:03 - INFO: Response size: 11684441 bytes
+2025-10-16 13:31:03 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:31:03 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:31:03 - INFO: Downloading product group: televisions
+2025-10-16 13:31:03 - DEBUG: API Call - Endpoint: exportProducts/televisions
+2025-10-16 13:31:03 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 1,
+    "itemLimit": 99999999,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 5,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": false,
+    "fileOutput": {
+        "filetype": "zip",
+        "filetypeHeader": "application\/zip",
+        "filename": "televisions",
+        "folderPath": "E:\\Webdaten\\EPREL_Public\\zips"
+    }
+}
+2025-10-16 13:31:03 - INFO: Saving file to E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:31:03 - INFO: Response size: 2040888 bytes
+2025-10-16 13:31:03 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:31:03 - INFO: File saved: E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:31:03 - INFO: 2. Process EPREL data
+2025-10-16 13:31:03 - INFO: Unzipping downloaded files
+2025-10-16 13:31:03 - DEBUG: Unzipping E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:31:03 - DEBUG: Finished unzipping E:\Webdaten\EPREL_Public\zips/electronicdisplays.zip
+2025-10-16 13:31:03 - DEBUG: Unzipping E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:31:04 - DEBUG: Finished unzipping E:\Webdaten\EPREL_Public\zips/televisions.zip
+2025-10-16 13:31:04 - INFO: Processing unzipped JSON files
+2025-10-16 13:31:04 - DEBUG: Reducing E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json → E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json_reduced.json
+2025-10-16 13:31:06 - DEBUG: Reducing E:\Webdaten\EPREL_Public\zips/televisions/televisions_1.json → E:\Webdaten\EPREL_Public\zips/televisions/televisions_1.json_reduced.json
+2025-10-16 13:31:06 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:31:06 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:31:44 - INFO: EPREL sync script started
+2025-10-16 13:31:44 - INFO: 1. Download EPREL data
+2025-10-16 13:31:44 - INFO: 2. Process EPREL data
+2025-10-16 13:31:44 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:31:44 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:32:11 - INFO: EPREL sync script started
+2025-10-16 13:32:11 - INFO: 1. Download EPREL data
+2025-10-16 13:32:11 - INFO: 2. Process EPREL data
+2025-10-16 13:32:11 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:32:11 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:32:12 - INFO: ✅ Connected to SQL database 'Prozessdaten' on 'SQL-THAG-LOW.TAROX.DE'
+2025-10-16 13:32:31 - INFO: EPREL sync script started
+2025-10-16 13:32:31 - INFO: 1. Download EPREL data
+2025-10-16 13:32:31 - INFO: 2. Process EPREL data
+2025-10-16 13:32:31 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:32:31 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:32:31 - INFO: ✅ Connected to SQL database 'Prozessdaten' on 'SQL-THAG-LOW.TAROX.DE'
+2025-10-16 13:32:42 - DEBUG: 🛠️ DML query executed successfully
+2025-10-16 13:32:42 - DEBUG: Importing E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json_reduced.json into SQL
+2025-10-16 13:33:29 - INFO: EPREL sync script started
+2025-10-16 13:33:29 - INFO: 1. Download EPREL data
+2025-10-16 13:33:29 - INFO: 2. Process EPREL data
+2025-10-16 13:33:29 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:33:29 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:33:29 - INFO: ✅ Connected to SQL database 'Prozessdaten' on 'SQL-THAG-LOW.TAROX.DE'
+2025-10-16 13:33:29 - DEBUG: 🛠️ DML query executed successfully
+2025-10-16 13:33:30 - DEBUG: Importing E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json_reduced.json into SQL
+2025-10-16 13:33:49 - INFO: EPREL sync script started
+2025-10-16 13:33:49 - INFO: 1. Download EPREL data
+2025-10-16 13:33:49 - INFO: 2. Process EPREL data
+2025-10-16 13:33:49 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:33:49 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:33:50 - INFO: ✅ Connected to SQL database 'Prozessdaten' on 'SQL-THAG-LOW.TAROX.DE'
+2025-10-16 13:33:50 - DEBUG: 🛠️ DML query executed successfully
+2025-10-16 13:33:50 - DEBUG: Importing E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json_reduced.json into SQL
+2025-10-16 13:34:08 - INFO: EPREL sync script started
+2025-10-16 13:34:08 - INFO: 1. Download EPREL data
+2025-10-16 13:34:08 - INFO: 2. Process EPREL data
+2025-10-16 13:34:08 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:34:08 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:34:08 - INFO: ✅ Connected to SQL database 'Prozessdaten' on 'SQL-THAG-LOW.TAROX.DE'
+2025-10-16 13:34:08 - DEBUG: 🛠️ DML query executed successfully
+2025-10-16 13:34:08 - DEBUG: Importing E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json_reduced.json into SQL
+2025-10-16 13:35:14 - INFO: EPREL sync script started
+2025-10-16 13:35:14 - INFO: 1. Download EPREL data
+2025-10-16 13:35:14 - INFO: 2. Process EPREL data
+2025-10-16 13:35:14 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:35:14 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:35:14 - INFO: ✅ Connected to SQL database 'Prozessdaten' on 'SQL-THAG-LOW.TAROX.DE'
+2025-10-16 13:35:14 - DEBUG: 🛠️ DML query executed successfully
+2025-10-16 13:35:14 - DEBUG: Importing E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json_reduced.json into SQL
+2025-10-16 13:35:15 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:16 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:16 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:16 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:17 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:18 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:18 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:18 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:19 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:19 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:19 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:20 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:20 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:21 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:21 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:21 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:22 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:22 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:22 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:22 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:23 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:24 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:24 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:25 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:25 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:25 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:25 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:26 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:26 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:27 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:27 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:28 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:28 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:29 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:29 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:30 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:30 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:31 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:31 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:32 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:32 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:33 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:33 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:34 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:34 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:35 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:35 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:35 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:35 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:36 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:36 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:36 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:36 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:36 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:37 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:37 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:37 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:37 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:38 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:38 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:38 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:39 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:39 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:39 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:40 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:40 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:40 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:40 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:41 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:41 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:41 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:41 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:41 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:41 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:41 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:41 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:42 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:42 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:42 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:42 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:42 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:42 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:43 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:43 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:43 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:43 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:43 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:44 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:44 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:44 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:45 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:45 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:45 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:45 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:45 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:46 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:46 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:46 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:46 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:46 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:47 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:47 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:47 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:47 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:48 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:48 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:49 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:49 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:49 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:49 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:49 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:49 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:49 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:50 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:50 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:50 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:50 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:50 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:50 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:51 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:51 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:51 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:52 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:52 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:52 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:52 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:52 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:52 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:52 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:52 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:53 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:54 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:54 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:54 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:54 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:54 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:54 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:54 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:54 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:54 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:55 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:56 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - INFO: ✅ Insert completed: 44971 rows into 'Prozessdaten.dbo.EPREL_rawProductData'
+2025-10-16 13:35:57 - INFO: 📁 File import finished
+2025-10-16 13:35:57 - DEBUG: Importing E:\Webdaten\EPREL_Public\zips/televisions/televisions_1.json_reduced.json into SQL
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:57 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:58 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:35:59 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - DEBUG: 📦 Batch inserted
+2025-10-16 13:36:00 - INFO: ✅ Insert completed: 14360 rows into 'Prozessdaten.dbo.EPREL_rawProductData'
+2025-10-16 13:36:00 - INFO: 📁 File import finished
+2025-10-16 13:36:00 - INFO: Executing SQL: "exec Prozessdaten.dbo.EPREL_update;"
+2025-10-16 13:37:22 - INFO: EPREL sync script started
+2025-10-16 13:37:22 - INFO: 1. Download EPREL data
+2025-10-16 13:37:22 - INFO: 2. Process EPREL data
+2025-10-16 13:37:22 - INFO: 3. Push EPREL data to SQL
+2025-10-16 13:37:22 - INFO: Clearing EPREL_rawProductData table
+2025-10-16 13:37:23 - INFO: ✅ Connected to SQL database 'Prozessdaten' on 'SQL-THAG-LOW.TAROX.DE'
+2025-10-16 13:37:26 - DEBUG: 🛠️ DML query executed successfully | CONTEXT: {"sql":"DELETE FROM Prozessdaten.dbo.EPREL_rawProductData;","params":[],"duration_ms":3764.8,"memory_MB":2,"rows":59331}
+2025-10-16 13:37:26 - DEBUG: Importing E:\Webdaten\EPREL_Public\zips/electronicdisplays/electronicdisplays_1.json_reduced.json into SQL
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":1,"rows":250,"progress":"0.56%","duration_ms":42.39,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":2,"rows":250,"progress":"1.11%","duration_ms":42.29,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":3,"rows":250,"progress":"1.67%","duration_ms":33.09,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":4,"rows":250,"progress":"2.22%","duration_ms":33.55,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":5,"rows":250,"progress":"2.78%","duration_ms":43.27,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":6,"rows":250,"progress":"3.34%","duration_ms":43.18,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":7,"rows":250,"progress":"3.89%","duration_ms":46.6,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":8,"rows":250,"progress":"4.45%","duration_ms":40.26,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":9,"rows":250,"progress":"5%","duration_ms":38.5,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":10,"rows":250,"progress":"5.56%","duration_ms":42.24,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":11,"rows":250,"progress":"6.12%","duration_ms":56.44,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":12,"rows":250,"progress":"6.67%","duration_ms":30.46,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":13,"rows":250,"progress":"7.23%","duration_ms":37.89,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":14,"rows":250,"progress":"7.78%","duration_ms":34.56,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":15,"rows":250,"progress":"8.34%","duration_ms":37.63,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":16,"rows":250,"progress":"8.89%","duration_ms":39.81,"memory_MB":78}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":17,"rows":250,"progress":"9.45%","duration_ms":36.95,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":18,"rows":250,"progress":"10.01%","duration_ms":35.13,"memory_MB":78}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":19,"rows":250,"progress":"10.56%","duration_ms":35.92,"memory_MB":76}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":20,"rows":250,"progress":"11.12%","duration_ms":42.84,"memory_MB":78}
+2025-10-16 13:37:27 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":21,"rows":250,"progress":"11.67%","duration_ms":40.49,"memory_MB":76}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":22,"rows":250,"progress":"12.23%","duration_ms":149.88,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":23,"rows":250,"progress":"12.79%","duration_ms":38.73,"memory_MB":76}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":24,"rows":250,"progress":"13.34%","duration_ms":42.2,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":25,"rows":250,"progress":"13.9%","duration_ms":39.42,"memory_MB":76}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":26,"rows":250,"progress":"14.45%","duration_ms":38.61,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":27,"rows":250,"progress":"15.01%","duration_ms":41.67,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":28,"rows":250,"progress":"15.57%","duration_ms":42.65,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":29,"rows":250,"progress":"16.12%","duration_ms":47.17,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":30,"rows":250,"progress":"16.68%","duration_ms":39.01,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":31,"rows":250,"progress":"17.23%","duration_ms":39.06,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":32,"rows":250,"progress":"17.79%","duration_ms":46.36,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":33,"rows":250,"progress":"18.35%","duration_ms":58.26,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":34,"rows":250,"progress":"18.9%","duration_ms":50.29,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":35,"rows":250,"progress":"19.46%","duration_ms":51.69,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":36,"rows":250,"progress":"20.01%","duration_ms":50.41,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":37,"rows":250,"progress":"20.57%","duration_ms":46.63,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":38,"rows":250,"progress":"21.12%","duration_ms":36.52,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":39,"rows":250,"progress":"21.68%","duration_ms":44.45,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":40,"rows":250,"progress":"22.24%","duration_ms":44.36,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":41,"rows":250,"progress":"22.79%","duration_ms":46.44,"memory_MB":78}
+2025-10-16 13:37:28 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":42,"rows":250,"progress":"23.35%","duration_ms":44.66,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":43,"rows":250,"progress":"23.9%","duration_ms":51.55,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":44,"rows":250,"progress":"24.46%","duration_ms":39.52,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":45,"rows":250,"progress":"25.02%","duration_ms":42.24,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":46,"rows":250,"progress":"25.57%","duration_ms":43.6,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":47,"rows":250,"progress":"26.13%","duration_ms":43.3,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":48,"rows":250,"progress":"26.68%","duration_ms":37.77,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":49,"rows":250,"progress":"27.24%","duration_ms":49.49,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":50,"rows":250,"progress":"27.8%","duration_ms":44.21,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":51,"rows":250,"progress":"28.35%","duration_ms":36.59,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":52,"rows":250,"progress":"28.91%","duration_ms":39,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":53,"rows":250,"progress":"29.46%","duration_ms":39.56,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":54,"rows":250,"progress":"30.02%","duration_ms":45.86,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":55,"rows":250,"progress":"30.58%","duration_ms":42.46,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":56,"rows":250,"progress":"31.13%","duration_ms":37.95,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":57,"rows":250,"progress":"31.69%","duration_ms":48.47,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":58,"rows":250,"progress":"32.24%","duration_ms":45.13,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":59,"rows":250,"progress":"32.8%","duration_ms":40.17,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":60,"rows":250,"progress":"33.35%","duration_ms":40.34,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":61,"rows":250,"progress":"33.91%","duration_ms":40.34,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":62,"rows":250,"progress":"34.47%","duration_ms":48.16,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":63,"rows":250,"progress":"35.02%","duration_ms":53.4,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":64,"rows":250,"progress":"35.58%","duration_ms":34.84,"memory_MB":78}
+2025-10-16 13:37:29 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":65,"rows":250,"progress":"36.13%","duration_ms":48.71,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":66,"rows":250,"progress":"36.69%","duration_ms":38.97,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":67,"rows":250,"progress":"37.25%","duration_ms":59.7,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":68,"rows":250,"progress":"37.8%","duration_ms":137.74,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":69,"rows":250,"progress":"38.36%","duration_ms":53.71,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":70,"rows":250,"progress":"38.91%","duration_ms":87.35,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":71,"rows":250,"progress":"39.47%","duration_ms":46.71,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":72,"rows":250,"progress":"40.03%","duration_ms":36.64,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":73,"rows":250,"progress":"40.58%","duration_ms":40.88,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":74,"rows":250,"progress":"41.14%","duration_ms":42.32,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":75,"rows":250,"progress":"41.69%","duration_ms":46.07,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":76,"rows":250,"progress":"42.25%","duration_ms":40.27,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":77,"rows":250,"progress":"42.81%","duration_ms":41.23,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":78,"rows":250,"progress":"43.36%","duration_ms":59.56,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":79,"rows":250,"progress":"43.92%","duration_ms":47.98,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":80,"rows":250,"progress":"44.47%","duration_ms":48.58,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":81,"rows":250,"progress":"45.03%","duration_ms":50.7,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":82,"rows":250,"progress":"45.58%","duration_ms":51.16,"memory_MB":78}
+2025-10-16 13:37:30 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":83,"rows":250,"progress":"46.14%","duration_ms":44.32,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":84,"rows":250,"progress":"46.7%","duration_ms":113.52,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":85,"rows":250,"progress":"47.25%","duration_ms":45.69,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":86,"rows":250,"progress":"47.81%","duration_ms":55.46,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":87,"rows":250,"progress":"48.36%","duration_ms":85.2,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":88,"rows":250,"progress":"48.92%","duration_ms":69.45,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":89,"rows":250,"progress":"49.48%","duration_ms":59.56,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":90,"rows":250,"progress":"50.03%","duration_ms":57.14,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":91,"rows":250,"progress":"50.59%","duration_ms":40.7,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":92,"rows":250,"progress":"51.14%","duration_ms":42.38,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":93,"rows":250,"progress":"51.7%","duration_ms":42.45,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":94,"rows":250,"progress":"52.26%","duration_ms":38.64,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":95,"rows":250,"progress":"52.81%","duration_ms":37.51,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":96,"rows":250,"progress":"53.37%","duration_ms":39.23,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":97,"rows":250,"progress":"53.92%","duration_ms":38.69,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":98,"rows":250,"progress":"54.48%","duration_ms":49.88,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":99,"rows":250,"progress":"55.04%","duration_ms":40.99,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":100,"rows":250,"progress":"55.59%","duration_ms":42.83,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":101,"rows":250,"progress":"56.15%","duration_ms":44.26,"memory_MB":78}
+2025-10-16 13:37:31 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":102,"rows":250,"progress":"56.7%","duration_ms":42.68,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":103,"rows":250,"progress":"57.26%","duration_ms":40.94,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":104,"rows":250,"progress":"57.82%","duration_ms":46.22,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":105,"rows":250,"progress":"58.37%","duration_ms":52.59,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":106,"rows":250,"progress":"58.93%","duration_ms":52.72,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":107,"rows":250,"progress":"59.48%","duration_ms":41.54,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":108,"rows":250,"progress":"60.04%","duration_ms":148.87,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":109,"rows":250,"progress":"60.59%","duration_ms":63.06,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":110,"rows":250,"progress":"61.15%","duration_ms":138.5,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":111,"rows":250,"progress":"61.71%","duration_ms":73.7,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":112,"rows":250,"progress":"62.26%","duration_ms":78.49,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":113,"rows":250,"progress":"62.82%","duration_ms":54.14,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":114,"rows":250,"progress":"63.37%","duration_ms":42.51,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":115,"rows":250,"progress":"63.93%","duration_ms":48.87,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":116,"rows":250,"progress":"64.49%","duration_ms":47.08,"memory_MB":78}
+2025-10-16 13:37:32 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":117,"rows":250,"progress":"65.04%","duration_ms":51.11,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":118,"rows":250,"progress":"65.6%","duration_ms":52.46,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":119,"rows":250,"progress":"66.15%","duration_ms":49.48,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":120,"rows":250,"progress":"66.71%","duration_ms":69.25,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":121,"rows":250,"progress":"67.27%","duration_ms":49.87,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":122,"rows":250,"progress":"67.82%","duration_ms":40.69,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":123,"rows":250,"progress":"68.38%","duration_ms":57.68,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":124,"rows":250,"progress":"68.93%","duration_ms":38.7,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":125,"rows":250,"progress":"69.49%","duration_ms":57.03,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":126,"rows":250,"progress":"70.05%","duration_ms":54.73,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":127,"rows":250,"progress":"70.6%","duration_ms":65.59,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":128,"rows":250,"progress":"71.16%","duration_ms":57.24,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":129,"rows":250,"progress":"71.71%","duration_ms":76.14,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":130,"rows":250,"progress":"72.27%","duration_ms":77.25,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":131,"rows":250,"progress":"72.82%","duration_ms":47.62,"memory_MB":78}
+2025-10-16 13:37:33 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":132,"rows":250,"progress":"73.38%","duration_ms":101.33,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":133,"rows":250,"progress":"73.94%","duration_ms":118.62,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":134,"rows":250,"progress":"74.49%","duration_ms":104.94,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":135,"rows":250,"progress":"75.05%","duration_ms":79.82,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":136,"rows":250,"progress":"75.6%","duration_ms":41.41,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":137,"rows":250,"progress":"76.16%","duration_ms":98.22,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":138,"rows":250,"progress":"76.72%","duration_ms":83.55,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":139,"rows":250,"progress":"77.27%","duration_ms":146.09,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":140,"rows":250,"progress":"77.83%","duration_ms":48.47,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":141,"rows":250,"progress":"78.38%","duration_ms":58.58,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":142,"rows":250,"progress":"78.94%","duration_ms":67.6,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":143,"rows":250,"progress":"79.5%","duration_ms":107.62,"memory_MB":78}
+2025-10-16 13:37:34 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":144,"rows":250,"progress":"80.05%","duration_ms":54.89,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":145,"rows":250,"progress":"80.61%","duration_ms":220.32,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":146,"rows":250,"progress":"81.16%","duration_ms":67.73,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":147,"rows":250,"progress":"81.72%","duration_ms":57.27,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":148,"rows":250,"progress":"82.28%","duration_ms":58.44,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":149,"rows":250,"progress":"82.83%","duration_ms":47.58,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":150,"rows":250,"progress":"83.39%","duration_ms":65.07,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":151,"rows":250,"progress":"83.94%","duration_ms":84.03,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":152,"rows":250,"progress":"84.5%","duration_ms":43.58,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":153,"rows":250,"progress":"85.05%","duration_ms":40.42,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":154,"rows":250,"progress":"85.61%","duration_ms":36.64,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":155,"rows":250,"progress":"86.17%","duration_ms":36.86,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":156,"rows":250,"progress":"86.72%","duration_ms":34.97,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":157,"rows":250,"progress":"87.28%","duration_ms":37.58,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":158,"rows":250,"progress":"87.83%","duration_ms":43.65,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":159,"rows":250,"progress":"88.39%","duration_ms":37.18,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":160,"rows":250,"progress":"88.95%","duration_ms":39.58,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":161,"rows":250,"progress":"89.5%","duration_ms":45.52,"memory_MB":78}
+2025-10-16 13:37:35 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":162,"rows":250,"progress":"90.06%","duration_ms":39.38,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":163,"rows":250,"progress":"90.61%","duration_ms":114.29,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":164,"rows":250,"progress":"91.17%","duration_ms":72.25,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":165,"rows":250,"progress":"91.73%","duration_ms":180.69,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":166,"rows":250,"progress":"92.28%","duration_ms":98.76,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":167,"rows":250,"progress":"92.84%","duration_ms":43.06,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":168,"rows":250,"progress":"93.39%","duration_ms":42.83,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":169,"rows":250,"progress":"93.95%","duration_ms":87.06,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":170,"rows":250,"progress":"94.51%","duration_ms":48.01,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":171,"rows":250,"progress":"95.06%","duration_ms":47.09,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":172,"rows":250,"progress":"95.62%","duration_ms":42.5,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":173,"rows":250,"progress":"96.17%","duration_ms":39.46,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":174,"rows":250,"progress":"96.73%","duration_ms":40.91,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":175,"rows":250,"progress":"97.28%","duration_ms":41.74,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":176,"rows":250,"progress":"97.84%","duration_ms":39.66,"memory_MB":78}
+2025-10-16 13:37:36 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":177,"rows":250,"progress":"98.4%","duration_ms":42.36,"memory_MB":78}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":178,"rows":250,"progress":"98.95%","duration_ms":40.96,"memory_MB":78}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":179,"rows":250,"progress":"99.51%","duration_ms":39.83,"memory_MB":78}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":180,"rows":221,"progress":"100%","duration_ms":39.79,"memory_MB":78}
+2025-10-16 13:37:37 - INFO: ✅ Insert completed: 44971 rows into 'Prozessdaten.dbo.EPREL_rawProductData'
+2025-10-16 13:37:37 - INFO: 📁 File import finished
+2025-10-16 13:37:37 - DEBUG: Importing E:\Webdaten\EPREL_Public\zips/televisions/televisions_1.json_reduced.json into SQL
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":1,"rows":250,"progress":"1.74%","duration_ms":38.01,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":2,"rows":250,"progress":"3.48%","duration_ms":44.82,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":3,"rows":250,"progress":"5.22%","duration_ms":37.79,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":4,"rows":250,"progress":"6.96%","duration_ms":37.88,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":5,"rows":250,"progress":"8.7%","duration_ms":41.05,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":6,"rows":250,"progress":"10.45%","duration_ms":38.58,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":7,"rows":250,"progress":"12.19%","duration_ms":46.35,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":8,"rows":250,"progress":"13.93%","duration_ms":130.04,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":9,"rows":250,"progress":"15.67%","duration_ms":150.74,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":10,"rows":250,"progress":"17.41%","duration_ms":90.36,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":11,"rows":250,"progress":"19.15%","duration_ms":34.99,"memory_MB":70}
+2025-10-16 13:37:37 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":12,"rows":250,"progress":"20.89%","duration_ms":33.59,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":13,"rows":250,"progress":"22.63%","duration_ms":59.97,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":14,"rows":250,"progress":"24.37%","duration_ms":252.1,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":15,"rows":250,"progress":"26.11%","duration_ms":44.32,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":16,"rows":250,"progress":"27.86%","duration_ms":126.62,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":17,"rows":250,"progress":"29.6%","duration_ms":41.32,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":18,"rows":250,"progress":"31.34%","duration_ms":128.1,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":19,"rows":250,"progress":"33.08%","duration_ms":46.81,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":20,"rows":250,"progress":"34.82%","duration_ms":39.96,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":21,"rows":250,"progress":"36.56%","duration_ms":45.17,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":22,"rows":250,"progress":"38.3%","duration_ms":38.48,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":23,"rows":250,"progress":"40.04%","duration_ms":43.65,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":24,"rows":250,"progress":"41.78%","duration_ms":53.06,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":25,"rows":250,"progress":"43.52%","duration_ms":36.84,"memory_MB":70}
+2025-10-16 13:37:38 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":26,"rows":250,"progress":"45.26%","duration_ms":38.16,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":27,"rows":250,"progress":"47.01%","duration_ms":36.62,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":28,"rows":250,"progress":"48.75%","duration_ms":36.52,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":29,"rows":250,"progress":"50.49%","duration_ms":45.69,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":30,"rows":250,"progress":"52.23%","duration_ms":35.69,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":31,"rows":250,"progress":"53.97%","duration_ms":41.18,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":32,"rows":250,"progress":"55.71%","duration_ms":55.65,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":33,"rows":250,"progress":"57.45%","duration_ms":55.36,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":34,"rows":250,"progress":"59.19%","duration_ms":47.36,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":35,"rows":250,"progress":"60.93%","duration_ms":48.63,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":36,"rows":250,"progress":"62.67%","duration_ms":65.54,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":37,"rows":250,"progress":"64.42%","duration_ms":59.78,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":38,"rows":250,"progress":"66.16%","duration_ms":41.96,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":39,"rows":250,"progress":"67.9%","duration_ms":42.36,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":40,"rows":250,"progress":"69.64%","duration_ms":44.03,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":41,"rows":250,"progress":"71.38%","duration_ms":51.32,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":42,"rows":250,"progress":"73.12%","duration_ms":45.36,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":43,"rows":250,"progress":"74.86%","duration_ms":36.29,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":44,"rows":250,"progress":"76.6%","duration_ms":53.69,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":45,"rows":250,"progress":"78.34%","duration_ms":75.67,"memory_MB":70}
+2025-10-16 13:37:39 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":46,"rows":250,"progress":"80.08%","duration_ms":38,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":47,"rows":250,"progress":"81.82%","duration_ms":37.64,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":48,"rows":250,"progress":"83.57%","duration_ms":78.31,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":49,"rows":250,"progress":"85.31%","duration_ms":62.55,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":50,"rows":250,"progress":"87.05%","duration_ms":43.7,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":51,"rows":250,"progress":"88.79%","duration_ms":38.33,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":52,"rows":250,"progress":"90.53%","duration_ms":40.82,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":53,"rows":250,"progress":"92.27%","duration_ms":36.22,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":54,"rows":250,"progress":"94.01%","duration_ms":42.34,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":55,"rows":250,"progress":"95.75%","duration_ms":40.33,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":56,"rows":250,"progress":"97.49%","duration_ms":40.16,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":57,"rows":250,"progress":"99.23%","duration_ms":45.54,"memory_MB":70}
+2025-10-16 13:37:40 - DEBUG: 📦 Batch inserted | CONTEXT: {"table":"Prozessdaten.dbo.EPREL_rawProductData","batch":58,"rows":110,"progress":"100%","duration_ms":19.29,"memory_MB":70}
+2025-10-16 13:37:40 - INFO: ✅ Insert completed: 14360 rows into 'Prozessdaten.dbo.EPREL_rawProductData'
+2025-10-16 13:37:40 - INFO: 📁 File import finished
+2025-10-16 13:37:40 - INFO: Executing SQL: "exec Prozessdaten.dbo.EPREL_update;"

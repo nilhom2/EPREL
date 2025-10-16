@@ -1,34 +1,47 @@
 <?php
 
-include_once __DIR__ . '/../NH_Core/include.php';
+include_once __DIR__ . '/../nh_connectors/include.php';
 
-use NH_Core\Connectors\EprelAPI;
-use NH_Core\Utils\Logger;
+use nh_connectors\Connectors\EprelAPI;
+use nh_connectors\Connectors\SQLConnector;
+use nh_connectors\Utils\Logger;
 
-use function NH_Core\Utils\purgeDirectory;
-use function NH_Core\Utils\unzipToSameNameFolder;
+use function nh_connectors\Utils\purgeDirectory;
+use function nh_connectors\Utils\unzipToSameNameFolder;
+use function nh_connectors\Utils\json_reduce_columns;
+use function nh_connectors\sql;
 
 /**
  * Download EPREL product group ZIPs
  */
-function eprel_download_data(EprelAPI $api, array $productGroups, string $zipBasePath, bool $debug = false, int $sleepBetween = 5): void
+function eprel_download_data(EprelAPI $api, array $productGroups, string $zipBasePath, int $sleepBetween = 5): void
 {
     Logger::logGlobal("Deleting old zips and folders", [], Logger::LEVEL_NORMAL);
     purgeDirectory($zipBasePath);
 
     Logger::logGlobal("Downloading EPREL product group ZIPs", [], Logger::LEVEL_NORMAL);
+
     foreach ($productGroups as $group) {
         Logger::logGlobal("Downloading product group: {$group}", [], Logger::LEVEL_NORMAL);
-        $api->downloadProductGroupZip($group, [
+
+        $result = $api->downloadProductGroupZip($group, [
             'fileOutput' => [
                 'folderPath' => $zipBasePath,
                 'filename' => $group
             ],
-            'debug' => $debug,
-        ]);
-        sleep($sleepBetween);
+        ], false); // false = auto-save
+
+        if ($result) {
+            Logger::logGlobal("File saved: {$zipBasePath}/{$group}.zip", [], Logger::LEVEL_NORMAL);
+        } else {
+            Logger::logGlobal("Failed to download {$group}", [], Logger::LEVEL_NORMAL);
+        }
+
+        // Sleep between API calls
+        usleep($sleepBetween);
     }
 }
+
 
 /**
  * Process and reduce EPREL JSON data
@@ -42,14 +55,11 @@ function eprel_process_data(string $zipBasePath, array $keepColumns, bool $debug
         $zipPath = "{$zipBasePath}/{$entry}";
         if (is_file($zipPath) && str_ends_with($zipPath, '.zip')) {
             Logger::logGlobal("Unzipping {$zipPath}", [], Logger::LEVEL_VERBOSE);
-            unzipToSameNameFolder($zipPath);
-
-            Logger::logGlobal("Unzipping {$zipPath}", [], Logger::LEVEL_VERBOSE);
-            unzipToSameNameFolder($zipPath);
+            unzipToSameNameFolder($zipPath);  // Only call once
             Logger::logGlobal("Finished unzipping {$zipPath}", [], Logger::LEVEL_VERBOSE);
-
         }
     }
+    
 
     Logger::logGlobal("Processing unzipped JSON files", [], Logger::LEVEL_NORMAL);
 
@@ -76,7 +86,7 @@ function eprel_process_data(string $zipBasePath, array $keepColumns, bool $debug
 function eprel_push_to_sql(string $zipBasePath, bool $debug = false): void
 {
     Logger::logGlobal("Clearing EPREL_rawProductData table", [], Logger::LEVEL_NORMAL);
-    runSQL("DELETE FROM Prozessdaten.dbo.EPREL_rawProductData;");
+    sql('low')->runSQL("DELETE FROM Prozessdaten.dbo.EPREL_rawProductData;");
 
     foreach (scandir($zipBasePath) as $folder) {
         if (in_array($folder, ['.', '..'])) continue;
@@ -92,7 +102,7 @@ function eprel_push_to_sql(string $zipBasePath, bool $debug = false): void
             if (!file_exists($reducedFile)) continue;
 
             Logger::logGlobal("Importing {$reducedFile} into SQL", [], Logger::LEVEL_VERBOSE);
-            filetosql($reducedFile, "Prozessdaten.dbo.EPREL_rawProductData", [
+            sql('low')->filetosql($reducedFile, "Prozessdaten.dbo.EPREL_rawProductData", [
                 "EprelRegistrationNumber" => "eprelRegistrationNumber",
                 "EPRELProductGroup" => "productGroup",
                 "ModelIdentifier" => "modelIdentifier",
