@@ -15,12 +15,20 @@ use nh_connectors\Utils\Logger;
 
 use function nh_connectors\sql;
 
-// init
+
+/*
+    INITIALIZE
+*/
 Logger::enableFileLogging();
 Logger::setLogLevel(2);
-$eprelApi = ConnectorFactory::createEprel();
 
-// START
+$eprelApi = ConnectorFactory::createEprel();
+$akeneoApi = ConnectorFactory::createAkeneo();
+$shopwareApi = ConnectorFactory::createShopware('live');
+
+/*
+    START
+*/
 Logger::logGlobal("EPREL sync script started");
 
 Logger::logGlobal("1. Download EPREL data");
@@ -34,8 +42,6 @@ eprel_push_to_sql($zip_basepath);
 
 Logger::logGlobal("4. exec Prozessdaten.dbo.EPREL_update;");
 sql('low')->runSQL("exec Prozessdaten.dbo.EPREL_update;");
-
-exit();
 
 // --- Product Files Download --- //
 
@@ -51,26 +57,63 @@ $redownload = is_first_saturday_of_month();
 if ($redownload) Logger::logGlobal("First Saturday of the month: redownloading all data.");
 eprel_download_product_files($eprelApi, $product_data_arr, $redownload);
 
-// --- Akeneo Upload --- //
 $product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
-if ($product_data_arr) {
-    Logger::logGlobal("6. Upload to Akeneo");
-    akeneo_upload($product_data_arr, false);
-} else {
-    Logger::logGlobal("No products for Akeneo upload. Skipping...");
+
+/*
+    Media upload and product update Loop
+*/
+foreach ($product_data_arr as $row) {
+
+    $tagid = $row["TAGID"];
+    $eprelRegNum = $row["EprelRegistrationNumber"];
+    $eprelCategory = $row["EPRELProductGroup"];
+    $energyicon_filename = $row["EnergyIconFilename"];
+
+    $energyLabelUrl = "$public_url_productFiles_basepath/$eprelRegNum/energylabel.png";
+    $datasheetUrl   = "$public_url_productFiles_basepath/$eprelRegNum/datasheet.pdf";
+    $energyIconUrl  = "$public_url_energyicons_basepath/$energyIconFilename";
+
+    /*
+        Shopware
+    */  
+
+    $mediaFolderId = "308252dc56fe4b5c96ddb4bfd64e5ec0";
+
+    // upload media
+    $energyLabelMedia = $shopwareApi->upload_media_by_url($energyLabelUrl, $mediaFolderId, "ENERGYLABEL_$tagid", 'png');
+    $datasheetMedia   = $shopwareApi->upload_media_by_url($datasheetUrl, $mediaFolderId, "DATASHEET_$tagid", 'pdf');
+    $energyIconMedia  = $shopwareApi->upload_media_by_url($energyIconUrl, $mediaFolderId, "ICON_".pathinfo($energyIconFilename, PATHINFO_FILENAME), 'svg');
+
+    // product association
+    $shopwareApi->update_product_eprel_data(
+        $tagid,
+        $energyLabelMedia['mediaId'] ?? null,
+        $energyIconMedia['mediaId'] ?? null,
+        $datasheetMedia['mediaId'] ?? null
+    );
+
+    /*  
+        Akeneo
+    */
+
+    // upload assets
+    $akeneoApi->uploadEnergyLabel($tagid, $eprelRegNum, $eprelCategory);
+    $akeneoApi->uploadDatasheet($tagid, $eprelRegNum, $eprelCategory);
+    $akeneoApi->uploadEnergyIcon($energyicon_filename);
+
+    // product association
+    $akeneoApi->fillProductAssetCollection(
+        'cnsc_energylabel',
+        $tagid,
+        [
+            'ENERGYLABEL_'.$tagid,
+            'DATASHEET_'.$tagid,
+            'ICON_'.str_replace("-", "_", str_replace(".svg", "", $energyicon_filename))
+        ]
+    );
+
+    Logger::logGlobal("Processed product $tagid");
 }
-
-// --- Shopware Upload --- //
-$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
-if ($product_data_arr) {
-    Logger::logGlobal("7. Upload to Shopware");
-    shopware_upload($product_data_arr, false);
-} else {
-    Logger::logGlobal("No products for Shopware upload. Skipping...");
-}
-
-Logger::logGlobal("EPREL sync script finished");
-
 
 
 

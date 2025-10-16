@@ -1,10 +1,7 @@
 <?php
 
 include_once(__DIR__."/nh_connectors/include.php");
-include_once(__DIR__."/functions/shopware.php");
-include_once(__DIR__."/functions/akeneo.php");
 include_once(__DIR__."/functions/eprel.php");
-include_once(__DIR__."/functions/shopmanager.php");
 
 /*
     Settings
