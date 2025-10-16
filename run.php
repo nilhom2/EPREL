@@ -39,7 +39,7 @@ exit();
 
 // --- Product Files Download --- //
 
-$product_data_arr = sql('low')-runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber ORDER BY ERPNr;");
+$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber ORDER BY ERPNr;");
 
 if (empty($product_data_arr)) {
     Logger::logGlobal("No products found in the database. Exiting...");
@@ -52,7 +52,7 @@ if ($redownload) Logger::logGlobal("First Saturday of the month: redownloading a
 eprel_download_product_files($eprelApi, $product_data_arr, $redownload);
 
 // --- Akeneo Upload --- //
-$product_data_arr = sql('low')-runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
+$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
 if ($product_data_arr) {
     Logger::logGlobal("6. Upload to Akeneo");
     akeneo_upload($product_data_arr, false);
@@ -61,7 +61,7 @@ if ($product_data_arr) {
 }
 
 // --- Shopware Upload --- //
-$product_data_arr = sql('low')-runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
+$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
 if ($product_data_arr) {
     Logger::logGlobal("7. Upload to Shopware");
     shopware_upload($product_data_arr, false);
