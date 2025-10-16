@@ -1,0 +1,88 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(1);
+
+
+include_once __DIR__ . '/NH_Core/include.php';
+include_once __DIR__ . '/functions/eprel.php';
+include_once __DIR__ . '/eprel_config.php';
+
+use NH_Core\Utils\Logger;
+use NH_Core\Connectors\EprelAPI;
+use NH_Core\ConnectorFactory;
+
+// --- Helpers --- //
+
+/** Exit if data array is empty */
+function checkDataOrExit(array $dataArr, string $message) {
+    if (empty($dataArr)) {
+        Logger::logGlobal($message);
+        exit();
+    }
+}
+
+/** Run SQL with automatic logging */
+function runSQLWithLog(string $sql) {
+    Logger::logGlobal("Executing SQL: \"$sql\"");
+    return runSQL($sql);
+}
+
+
+
+// --- Script Start --- //
+
+Logger::enableFileLogging();
+Logger::setLogLevel(2);
+
+Logger::logGlobal("EPREL sync script started");
+
+// Initialize EPREL API
+$eprelApi = ConnectorFactory::createEprel();
+
+// --- EPREL Data Handling --- //
+
+Logger::logGlobal("1. Download EPREL data");
+eprel_download_data($eprelApi, $EPREL_PRODUCT_GROUPS_ARRAY, $zip_basepath, $debug, $sleep_between_eprel_api_calls);
+
+Logger::logGlobal("2. Process EPREL data");
+eprel_process_data($zip_basepath, $keep_columns, $debug);
+
+Logger::logGlobal("3. Push EPREL data to SQL");
+eprel_push_to_sql($zip_basepath, $debug);
+
+exit();
+
+runSQLWithLog("exec Prozessdaten.dbo.EPREL_update;");
+
+// --- Product Files Download --- //
+
+$product_data_arr = runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber ORDER BY ERPNr;");
+checkDataOrExit($product_data_arr, "No products found in the database. Exiting...");
+
+Logger::logGlobal("4. Download product files");
+$redownload = is_first_saturday_of_month();
+if ($redownload) Logger::logGlobal("First Saturday of the month: redownloading all data.");
+eprel_download_product_files($eprelApi, $product_data_arr, $redownload);
+
+// --- Akeneo Upload --- //
+
+$product_data_arr = runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
+if ($product_data_arr) {
+    Logger::logGlobal("5. Upload to Akeneo");
+    akeneo_upload($product_data_arr, false);
+} else {
+    Logger::logGlobal("No products for Akeneo upload. Skipping...");
+}
+
+// --- Shopware Upload --- //
+
+$product_data_arr = runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
+if ($product_data_arr) {
+    Logger::logGlobal("6. Upload to Shopware");
+    shopware_upload($product_data_arr, false);
+} else {
+    Logger::logGlobal("No products for Shopware upload. Skipping...");
+}
+
+Logger::logGlobal("EPREL sync script finished");
