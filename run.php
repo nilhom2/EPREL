@@ -4,13 +4,13 @@ ini_set('display_startup_errors', 1);
 error_reporting(1);
 
 
-include_once __DIR__ . '/NH_Core/include.php';
+include_once __DIR__ . '/nh_connectors/include.php';
 include_once __DIR__ . '/functions/eprel.php';
 include_once __DIR__ . '/eprel_config.php';
 
-use NH_Core\Utils\Logger;
-use NH_Core\Connectors\EprelAPI;
-use NH_Core\ConnectorFactory;
+use nh_connectors\Utils\Logger;
+use nh_connectors\Connectors\EprelAPI;
+use nh_connectors\ConnectorFactory;
 
 // --- Helpers --- //
 
