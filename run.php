@@ -52,14 +52,12 @@ if (empty($product_data_arr)) {
     exit();
 }
 
-// Logger::logGlobal("---5. Download product files");
-// $redownload = is_first_saturday_of_month();
-// if ($redownload) Logger::logGlobal("First Saturday of the month: redownloading all data.");
-// eprel_download_product_files($eprelApi, $product_data_arr, $redownload);
+Logger::logGlobal("---5. Download product files");
+$redownload = is_first_saturday_of_month();
+if ($redownload) Logger::logGlobal("First Saturday of the month: redownloading all data.");
+eprel_download_product_files($eprelApi, $product_data_arr, $redownload);
 
-// $product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
-
-
+$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
 
 
 
@@ -276,10 +274,6 @@ foreach ($cache as $tagid => $values) {
         $mediaMapping['DATASHEET']
     );
 }
-
-
-
-
 
 
 

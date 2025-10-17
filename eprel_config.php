@@ -12,10 +12,10 @@ $basepath = "E:\Webdaten\EPREL_Public";
 
 
 /*
-    local changes nh
+    DEV Settings
 */
 
-$basepath = is_dir($basepath) ? $basepath : "C:\Users\\nils.homburg\\Desktop\\Tools\\test_eprel";
+$basepath = is_dir($basepath) ? $basepath : __DIR__."/EPREL_Testdaten";
 
 
 /*
