@@ -3,8 +3,23 @@
 include_once(__DIR__."/nh_connectors/include.php");
 include_once(__DIR__."/functions/eprel.php");
 
+
 /*
-    Settings
+    Base settings
+*/
+
+$basepath = "E:\Webdaten\EPREL_Public";
+
+
+/*
+    local changes nh
+*/
+
+$basepath = is_dir($basepath) ? $basepath : "C:\Users\\nils.homburg\\Desktop\\Tools\\test_eprel";
+
+
+/*
+    Other settings
 */
 
 $EPREL_PRODUCT_GROUPS_ARRAY = [
@@ -12,7 +27,6 @@ $EPREL_PRODUCT_GROUPS_ARRAY = [
     "televisions"
 ];
 
-$basepath = "E:\Webdaten\EPREL_Public";
 $zip_basepath = "$basepath\\zips";
 $productfiles_basepath = "$basepath/productFiles";
 $energyicons_basepath = "$basepath/energyicons";

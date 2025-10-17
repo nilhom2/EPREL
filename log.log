@@ -1,0 +1,305 @@
+2025-10-17 12:34:06 - INFO: EPREL sync script started
+2025-10-17 12:34:06 - INFO: ---1. Download EPREL data
+2025-10-17 12:34:06 - INFO: ---2. Process EPREL data
+2025-10-17 12:34:06 - INFO: ---3. Push EPREL data to SQL
+2025-10-17 12:34:06 - INFO: ---4. exec Prozessdaten.dbo.EPREL_update;
+2025-10-17 12:34:06 - INFO: ✅ Connected to SQL database 'Prozessdaten' on 'SQL-THAG-LOW.TAROX.DE'
+2025-10-17 12:34:08 - DEBUG: 📄 SELECT query executed successfully | CONTEXT: {"sql":"SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber ORDER BY ERPNr;","params":[],"duration_ms":1484.33,"memory_MB":8,"rows":2223}
+2025-10-17 12:34:08 - INFO: ---6. EPREL data -> Akeneo
+2025-10-17 12:34:08 - DEBUG: 📄 SELECT query executed successfully | CONTEXT: {"sql":"SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID = 'A1000518060' ORDER BY ERPNr;","params":[],"duration_ms":36.37,"memory_MB":8,"rows":1}
+2025-10-17 12:34:08 - DEBUG: Asset 'ENERGYLABEL_A1000518060' already exists in family 'euenergielabel' — skipping upload, but product reference can still be updated.
+2025-10-17 12:34:08 - DEBUG: Asset 'DATASHEET_A1000518060' already exists in family 'euenergielabel' — skipping upload, but product reference can still be updated.
+2025-10-17 12:34:09 - DEBUG: Asset 'ICON_APP_Left_DarkGreen_WithAPPEScale' already exists in family 'euenergielabel' — skipping upload, but product reference can still be updated.
+2025-10-17 12:34:09 - INFO: Processed product A1000518060
+2025-10-17 12:34:09 - INFO: ---7. Shopmanager -> Akeneo
+2025-10-17 12:34:09 - DEBUG: 📄 SELECT query executed successfully | CONTEXT: {"sql":"\r\n    SELECT top 1 * \r\n    FROM [1WS].[dbo].[SM_Produkte]\r\n    WHERE (ISNULL(energyLabel, '') != '' OR ISNULL(energyDatasheet, '') != '')\r\n    and pimIdentifier = 'A1000518060'\r\n","params":[],"duration_ms":50.96,"memory_MB":8,"rows":1}
+2025-10-17 12:34:09 - INFO: Found 1 products to patch to Akeneo.
+2025-10-17 12:34:09 - DEBUG: Processing SM product A1000518060 | CONTEXT: {"energyLabel":"https://shopmanager.future-x.de/images/energylabel/e1025278.jpg","datasheet":"https://shopmanager.future-x.de/images/datasheet/s1025278.pdf"}
+2025-10-17 12:34:09 - DEBUG: Uploading ENERGYLABEL for A1000518060
+2025-10-17 12:34:09 - DEBUG: Asset 'ENERGYLABEL_SM_A1000518060' already exists in family 'euenergielabel' — skipping upload, but product reference can still be updated.
+2025-10-17 12:34:09 - DEBUG: Uploading DATASHEET for A1000518060
+2025-10-17 12:34:10 - DEBUG: Asset 'DATASHEET_SM_A1000518060' already exists in family 'euenergielabel' — skipping upload, but product reference can still be updated.
+2025-10-17 12:34:10 - INFO: Patched SM product A1000518060 to Akeneo.
+2025-10-17 12:34:10 - INFO: ---8. Akeneo product asset association
+2025-10-17 12:34:10 - DEBUG: Filled product data A1000518060 | CONTEXT: {"cnsc_energylabel":[{"locale":null,"scope":null,"data":["ENERGYLABEL_A1000518060","DATASHEET_A1000518060","ICON_APP_Left_DarkGreen_WithAPPEScale","ENERGYLABEL_SM_A1000518060","DATASHEET_SM_A1000518060"]}]}
+2025-10-17 12:34:10 - DEBUG: cache for product A1000518060 | CONTEXT: {"ENERGYLABEL_A1000518060":{"url":"https://webapi.tarox.de/webservices/eprel/productFiles/789/energylabel.png"},"DATASHEET_A1000518060":{"url":"https://webapi.tarox.de/webservices/eprel/productFiles/789/datasheet.pdf"},"ICON_APP_Left_DarkGreen_WithAPPEScale":{"url":"https://webapi.tarox.de/webservices/eprel/energyicons/APP-Left-DarkGreen-WithAPPEScale.svg"},"ENERGYLABEL_SM_A1000518060":{"url":"https://shopmanager.future-x.de/images/energylabel/e1025278.jpg"},"DATASHEET_SM_A1000518060":{"url":"https://shopmanager.future-x.de/images/datasheet/s1025278.pdf"}}
+2025-10-17 12:34:10 - INFO: ---9. Shopware media upload and product association
+2025-10-17 12:34:10 - DEBUG: API Call - Endpoint: /api/media/243fb3afceaad2dfee1523ccd6a5c1e0
+2025-10-17 12:34:10 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 1,
+    "pageLimit": 1,
+    "startPage": 1,
+    "pageSize": 1,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:10 - DEBUG: Requesting Shopware access token
+2025-10-17 12:34:10 - INFO: Fetched new access token
+2025-10-17 12:34:10 - INFO: Processed 1 items on page 1 in 0.20s
+2025-10-17 12:34:10 - INFO: Finished. Processed 1 items on page 1 in 0.51s
+2025-10-17 12:34:10 - DEBUG: Shopware upload_media_by_url payload: | CONTEXT: [{"action":"upsert","entity":"media","payload":[{"id":"243fb3afceaad2dfee1523ccd6a5c1e0","mediaFolderId":"308252dc56fe4b5c96ddb4bfd64e5ec0","alt":"DATASHEET_A1000518060","title":"DATASHEET_A1000518060"}]}]
+2025-10-17 12:34:10 - DEBUG: API Call - Endpoint: /api/_action/sync
+2025-10-17 12:34:10 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "POST",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 0,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [
+        {
+            "action": "upsert",
+            "entity": "media",
+            "payload": [
+                {
+                    "id": "243fb3afceaad2dfee1523ccd6a5c1e0",
+                    "mediaFolderId": "308252dc56fe4b5c96ddb4bfd64e5ec0",
+                    "alt": "DATASHEET_A1000518060",
+                    "title": "DATASHEET_A1000518060"
+                }
+            ]
+        }
+    ],
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:11 - INFO: Processed 1 items on page 1 in 0.17s
+2025-10-17 12:34:11 - INFO: Finished. Processed 1 items on page 1 in 0.18s
+2025-10-17 12:34:11 - DEBUG: Media metadata synced: 243fb3afceaad2dfee1523ccd6a5c1e0
+2025-10-17 12:34:11 - DEBUG: API Call - Endpoint: /api/_action/media/243fb3afceaad2dfee1523ccd6a5c1e0/upload?extension=pdf
+2025-10-17 12:34:11 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "POST",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 99999999,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": {
+        "url": "https:\/\/webapi.tarox.de\/webservices\/eprel\/productFiles\/789\/datasheet.pdf"
+    },
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:11 - INFO: Processed 0 items on page 1 in 0.41s
+2025-10-17 12:34:11 - INFO: Processed 0 items on page 2 in 0.25s
+2025-10-17 12:34:11 - INFO: Processed 0 items on page 3 in 0.26s
+2025-10-17 12:34:11 - INFO: Finished. Processed 0 items on page 3 in 0.93s
+2025-10-17 12:34:12 - INFO: Media uploaded successfully from URL: https://webapi.tarox.de/webservices/eprel/productFiles/789/datasheet.pdf
+2025-10-17 12:34:12 - DEBUG: API Call - Endpoint: /api/media/ff1ebebb4bc1e4fd19ff210572798c19
+2025-10-17 12:34:12 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 1,
+    "pageLimit": 1,
+    "startPage": 1,
+    "pageSize": 1,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:12 - INFO: Processed 1 items on page 1 in 0.14s
+2025-10-17 12:34:12 - INFO: Finished. Processed 1 items on page 1 in 0.14s
+2025-10-17 12:34:12 - DEBUG: Shopware upload_media_by_url payload: | CONTEXT: [{"action":"upsert","entity":"media","payload":[{"id":"ff1ebebb4bc1e4fd19ff210572798c19","mediaFolderId":"308252dc56fe4b5c96ddb4bfd64e5ec0","alt":"ENERGYLABEL_A1000518060","title":"ENERGYLABEL_A1000518060"}]}]
+2025-10-17 12:34:12 - DEBUG: API Call - Endpoint: /api/_action/sync
+2025-10-17 12:34:12 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "POST",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 0,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [
+        {
+            "action": "upsert",
+            "entity": "media",
+            "payload": [
+                {
+                    "id": "ff1ebebb4bc1e4fd19ff210572798c19",
+                    "mediaFolderId": "308252dc56fe4b5c96ddb4bfd64e5ec0",
+                    "alt": "ENERGYLABEL_A1000518060",
+                    "title": "ENERGYLABEL_A1000518060"
+                }
+            ]
+        }
+    ],
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:12 - INFO: Processed 1 items on page 1 in 0.15s
+2025-10-17 12:34:12 - INFO: Finished. Processed 1 items on page 1 in 0.15s
+2025-10-17 12:34:12 - DEBUG: Media metadata synced: ff1ebebb4bc1e4fd19ff210572798c19
+2025-10-17 12:34:12 - DEBUG: API Call - Endpoint: /api/_action/media/ff1ebebb4bc1e4fd19ff210572798c19/upload?extension=png
+2025-10-17 12:34:12 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "POST",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 99999999,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": {
+        "url": "https:\/\/webapi.tarox.de\/webservices\/eprel\/productFiles\/789\/energylabel.png"
+    },
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:12 - INFO: Processed 0 items on page 1 in 0.43s
+2025-10-17 12:34:13 - INFO: Processed 0 items on page 2 in 0.35s
+2025-10-17 12:34:13 - INFO: Processed 0 items on page 3 in 0.42s
+2025-10-17 12:34:13 - INFO: Finished. Processed 0 items on page 3 in 1.20s
+2025-10-17 12:34:13 - INFO: Media uploaded successfully from URL: https://webapi.tarox.de/webservices/eprel/productFiles/789/energylabel.png
+2025-10-17 12:34:13 - DEBUG: API Call - Endpoint: /api/media/27b158389a4ce1df546c029d5b4694f0
+2025-10-17 12:34:13 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 1,
+    "pageLimit": 1,
+    "startPage": 1,
+    "pageSize": 1,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:13 - INFO: Processed 1 items on page 1 in 0.14s
+2025-10-17 12:34:13 - INFO: Finished. Processed 1 items on page 1 in 0.15s
+2025-10-17 12:34:13 - DEBUG: Shopware upload_media_by_url payload: | CONTEXT: [{"action":"upsert","entity":"media","payload":[{"id":"27b158389a4ce1df546c029d5b4694f0","mediaFolderId":"308252dc56fe4b5c96ddb4bfd64e5ec0","alt":"ICON_APP-Left-DarkGreen-WithAPPEScale","title":"ICON_APP-Left-DarkGreen-WithAPPEScale"}]}]
+2025-10-17 12:34:13 - DEBUG: API Call - Endpoint: /api/_action/sync
+2025-10-17 12:34:13 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "POST",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 0,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [
+        {
+            "action": "upsert",
+            "entity": "media",
+            "payload": [
+                {
+                    "id": "27b158389a4ce1df546c029d5b4694f0",
+                    "mediaFolderId": "308252dc56fe4b5c96ddb4bfd64e5ec0",
+                    "alt": "ICON_APP-Left-DarkGreen-WithAPPEScale",
+                    "title": "ICON_APP-Left-DarkGreen-WithAPPEScale"
+                }
+            ]
+        }
+    ],
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:13 - INFO: Processed 1 items on page 1 in 0.16s
+2025-10-17 12:34:13 - INFO: Finished. Processed 1 items on page 1 in 0.17s
+2025-10-17 12:34:13 - DEBUG: Media metadata synced: 27b158389a4ce1df546c029d5b4694f0
+2025-10-17 12:34:13 - DEBUG: API Call - Endpoint: /api/_action/media/27b158389a4ce1df546c029d5b4694f0/upload?extension=svg
+2025-10-17 12:34:13 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "POST",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 99999999,
+    "pageLimit": 99999999,
+    "startPage": 1,
+    "pageSize": 100,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": {
+        "url": "https:\/\/webapi.tarox.de\/webservices\/eprel\/energyicons\/APP-Left-DarkGreen-WithAPPEScale.svg"
+    },
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:14 - INFO: Processed 0 items on page 1 in 0.35s
+2025-10-17 12:34:14 - INFO: Processed 0 items on page 2 in 0.24s
+2025-10-17 12:34:14 - INFO: Processed 0 items on page 3 in 0.24s
+2025-10-17 12:34:14 - INFO: Finished. Processed 0 items on page 3 in 0.85s
+2025-10-17 12:34:14 - INFO: Media uploaded successfully from URL: https://webapi.tarox.de/webservices/eprel/energyicons/APP-Left-DarkGreen-WithAPPEScale.svg
+2025-10-17 12:34:14 - DEBUG: shopware final for product A1000518060 | CONTEXT: {"DATASHEET":"243fb3afceaad2dfee1523ccd6a5c1e0","ENERGYLABEL":"ff1ebebb4bc1e4fd19ff210572798c19","ICON":"27b158389a4ce1df546c029d5b4694f0"}
+2025-10-17 12:34:14 - DEBUG: API Call - Endpoint: /api/product/dd485504b516c4367166ec9aaf53fb34
+2025-10-17 12:34:14 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "GET",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 1,
+    "pageLimit": 1,
+    "startPage": 1,
+    "pageSize": 1,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": [],
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:14 - INFO: Processed 1 items on page 1 in 0.17s
+2025-10-17 12:34:14 - INFO: Finished. Processed 1 items on page 1 in 0.17s
+2025-10-17 12:34:14 - DEBUG: API Call - Endpoint: /api/product/dd485504b516c4367166ec9aaf53fb34
+2025-10-17 12:34:14 - DEBUG: Options: {
+    "debug": false,
+    "debug_guzzle": false,
+    "http_method": "PATCH",
+    "maximum_web_calls": 9999999,
+    "itemLimit": 1,
+    "pageLimit": 1,
+    "startPage": 1,
+    "pageSize": 1,
+    "pageNoDataExit": 2,
+    "sleep_between_calls_in_seconds": 0,
+    "http_params": [],
+    "json_array": [],
+    "http_request_body": {
+        "customFields": {
+            "energyLabelFile": "ff1ebebb4bc1e4fd19ff210572798c19",
+            "energyLabelIcon": "27b158389a4ce1df546c029d5b4694f0",
+            "productDataSheet": "243fb3afceaad2dfee1523ccd6a5c1e0"
+        }
+    },
+    "disable_pagination_parameters": true
+}
+2025-10-17 12:34:15 - INFO: Processed 0 items on page 1 in 0.75s
+2025-10-17 12:34:15 - INFO: Finished. Processed 0 items on page 1 in 0.76s
+2025-10-17 12:34:15 - INFO: Product dd485504b516c4367166ec9aaf53fb34 updated successfully
