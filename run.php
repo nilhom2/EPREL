@@ -15,6 +15,11 @@ use nh_connectors\Utils\Logger;
 
 use function nh_connectors\sql;
 
+/*
+    null to deactivate
+*/
+$debug_one_tagid = "A1000549610";
+
 
 /*
     INITIALIZE
@@ -25,6 +30,7 @@ Logger::setLogLevel(2);
 $eprelApi = ConnectorFactory::createEprel();
 $akeneoApi = ConnectorFactory::createAkeneo();
 $shopwareApi = ConnectorFactory::createShopware('live');
+$shopmanagerApi = ConnectorFactory::createShopmanager();
 
 /*
     START
@@ -32,39 +38,32 @@ $shopwareApi = ConnectorFactory::createShopware('live');
 Logger::logGlobal("EPREL sync script started");
 
 Logger::logGlobal("---1. Download EPREL data");
-eprel_download_data($eprelApi, $EPREL_PRODUCT_GROUPS_ARRAY, $zip_basepath, $sleep_between_eprel_api_calls);
+// eprel_download_data($eprelApi, $EPREL_PRODUCT_GROUPS_ARRAY, $zip_basepath, $sleep_between_eprel_api_calls);
 
 Logger::logGlobal("---2. Process EPREL data");
-eprel_process_data($zip_basepath, $keep_columns);
+// eprel_process_data($zip_basepath, $keep_columns);
 
 Logger::logGlobal("---3. Push EPREL data to SQL");
-eprel_push_to_sql($zip_basepath);
+// eprel_push_to_sql($zip_basepath);
 
 Logger::logGlobal("---4. exec Prozessdaten.dbo.EPREL_update;");
-sql('low')->runSQL("exec Prozessdaten.dbo.EPREL_update;");
+// sql('low')->runSQL("exec Prozessdaten.dbo.EPREL_update;");
 
-// --- Product Files Download --- //
-
-$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber ORDER BY ERPNr;");
+$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber" . ($debug_one_tagid ?  " WHERE TAGID = '$debug_one_tagid'" : ""));
 
 if (empty($product_data_arr)) {
     Logger::logGlobal("No products found in the database. Exiting...");
     exit();
 }
 
+// --- Product Files Download --- //
 Logger::logGlobal("---5. Download product files");
 $redownload = is_first_saturday_of_month();
 if ($redownload) Logger::logGlobal("First Saturday of the month: redownloading all data.");
 eprel_download_product_files($eprelApi, $product_data_arr, $redownload);
 
-$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != '' ORDER BY ERPNr;");
-
-
-
-$cache = [];
-
 Logger::logGlobal("---6. EPREL data -> Akeneo");
-$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID = 'A1000518060' ORDER BY ERPNr;");
+$cache = [];
 foreach ($product_data_arr as $row) {
     $tagid = $row["TAGID"];
     $eprelRegNum = $row["EprelRegistrationNumber"];
@@ -106,14 +105,22 @@ foreach ($product_data_arr as $row) {
 
 
 
+$energyIconMap = [
+    'A'   => 'A-Left-DarkGreen-WithAGScale.svg',
+    'A+'  => 'AP-Left-MediumGreen-WithAPPEScale.svg',
+    'A++' => 'APP-Left-DarkGreen-WithAPPPPScale.svg',
+    'B'   => 'B-Left-MediumGreen-WithAGScale.svg',
+    'C'   => 'C-Left-LightOrange-WithAGScale.svg',
+    'D'   => 'D-Left-Yellow-WithAGScale.svg',
+    'E'   => 'E-Left-LightOrange-WithAGScale.svg',
+    'F'   => 'F-Left-DarkOrange-WithAGScale.svg',
+    'G'   => 'G-Left-Red-WithAGScale.svg'
+];
+
+
 Logger::logGlobal("---7. Shopmanager -> Akeneo");
 
-$sm_products = sql('low')->runSQL("
-    SELECT top 1 * 
-    FROM [1WS].[dbo].[SM_Produkte]
-    WHERE (ISNULL(energyLabel, '') != '' OR ISNULL(energyDatasheet, '') != '')
-    and pimIdentifier = 'A1000518060'
-");
+$sm_products = sql('low')->runSQL("SELECT * FROM [1WS].[dbo].[SM_Produkte] WHERE (ISNULL(energyLabel, '') != '' OR ISNULL(energyDatasheet, '') != '')" . ($debug_one_tagid ?  " AND pimIdentifier = '$debug_one_tagid'" : ""));
 
 if (!empty($sm_products)) {
     Logger::logGlobal("Found " . count($sm_products) . " products to patch to Akeneo.");
@@ -144,7 +151,6 @@ if (!empty($sm_products)) {
                 'shopmanager',   // source
                 $energyLabelUrl  // use the URL from ShopManager
             );
-
         }
 
         if ($datasheetUrl !== '') {
@@ -156,14 +162,19 @@ if (!empty($sm_products)) {
                 'shopmanager',
                 $datasheetUrl
             );
+        }
 
+        $rating = $row['energyEek2020'] ?? $row['energyEek']; // fallback
+        if (!empty($rating) && isset($energyIconMap[$rating])) {
+            $energyicon_filename = $energyIconMap[$rating];
+            $energyIconUrl = $public_url_energyicons_basepath . $energyicon_filename;
         }
 
         // Cache
         $cache[$tagid] = array_merge($cache[$tagid], [
             'ENERGYLABEL_SM_'.$tagid => ['url' => $energyLabelUrl],
             'DATASHEET_SM_'.$tagid   => ['url' => $datasheetUrl],
-            'ICON_'.str_replace("-", "_", str_replace(".svg", "", $energyicon_filename)) => ['url' => $energyIconUrl]
+            'ICON_SM_'.str_replace("-", "_", str_replace(".svg", "", $energyicon_filename)) => ['url' => $energyIconUrl]
         ]);
 
         Logger::logGlobal("Patched SM product $tagid to Akeneo.");
@@ -217,56 +228,65 @@ $mediaFolderId = "308252dc56fe4b5c96ddb4bfd64e5ec0";
 
 foreach ($cache as $tagid => $values) {
     $mediaMapping = [
-        'DATASHEET' => null,
+        'DATASHEET'   => null,
         'ENERGYLABEL' => null,
-        'ICON' => null
+        'ICON'        => null,
     ];
 
-    // ---------------------------
-    // 1️⃣ DATASHEET & ENERGYLABEL: normal > SM
-    foreach (['DATASHEET', 'ENERGYLABEL'] as $type) {
-        $normalKey = $type . "_$tagid";
-        $smKey     = $type . "_SM_$tagid";
+    // ============================================================
+    // 🔍 Collect relevant URLs in one pass
+    // ============================================================
+    $urls = [
+        'DATASHEET'     => null,
+        'DATASHEET_SM'  => null,
+        'ENERGYLABEL'   => null,
+        'ENERGYLABEL_SM'=> null,
+        'ICON'          => null,
+        'ICON_SM'       => null,
+    ];
 
-        if (!empty($values[$normalKey]['url'] ?? null)) {
-            $url = $values[$normalKey]['url'];
-        } elseif (!empty($values[$smKey]['url'] ?? null)) {
-            $url = $values[$smKey]['url'];
-        } else {
-            $url = null;
-        }
-
-        if ($url) {
-            $extension = $type === 'DATASHEET' ? 'pdf' : 'png';
-            $filename = $type . "_" . $tagid;
-            $media = $shopwareApi->upload_media_by_url($url, $mediaFolderId, $filename, $extension, $sw_force);
-            $mediaMapping[$type] = $media['mediaId'] ?? null;
-        }
-    }
-
-    // ---------------------------
-    // 2️⃣ ICON: irgendein ICON_KEY nehmen, normale Version bevorzugt
-    $iconUrl = null;
     foreach ($values as $key => $data) {
-        if (str_starts_with($key, 'ICON_') && !str_contains($key, '_SM_')) {
-            if (!empty($data['url'] ?? null)) {
-                $iconUrl = $data['url'];
-                break;
-            }
+        if (empty($data['url'])) continue;
+
+        if (str_starts_with($key, 'DATASHEET_')) {
+            if (str_contains($key, '_SM_')) $urls['DATASHEET_SM'] = $data['url'];
+            else $urls['DATASHEET'] = $data['url'];
+        } elseif (str_starts_with($key, 'ENERGYLABEL_')) {
+            if (str_contains($key, '_SM_')) $urls['ENERGYLABEL_SM'] = $data['url'];
+            else $urls['ENERGYLABEL'] = $data['url'];
+        } elseif (str_starts_with($key, 'ICON_')) {
+            if (str_contains($key, '_SM_')) $urls['ICON_SM'] = $data['url'];
+            else $urls['ICON'] = $data['url'];
         }
     }
 
-    if ($iconUrl) {
-        $extension = pathinfo($iconUrl, PATHINFO_EXTENSION) ?: 'svg';
-        $filename = 'ICON_' . pathinfo($iconUrl, PATHINFO_FILENAME);
-        $media = $shopwareApi->upload_media_by_url($iconUrl, $mediaFolderId, $filename, $extension, $sw_force);
-        $mediaMapping['ICON'] = $media['mediaId'] ?? null;
+    // ============================================================
+    // ⬆️ Unified upload logic (SM prioritized)
+    // ============================================================
+    $uploadTargets = [
+        'DATASHEET'   => ['primary' => $urls['DATASHEET_SM'],   'fallback' => $urls['DATASHEET'],   'ext' => 'pdf'],
+        'ENERGYLABEL' => ['primary' => $urls['ENERGYLABEL_SM'], 'fallback' => $urls['ENERGYLABEL'], 'ext' => 'png'],
+        'ICON'        => ['primary' => $urls['ICON_SM'],        'fallback' => $urls['ICON'],        'ext' => 'svg'],
+    ];
+
+    foreach ($uploadTargets as $type => $config) {
+        $url = $config['primary'] ?: $config['fallback'];
+        if (!$url) continue;
+
+        $extension = pathinfo($url, PATHINFO_EXTENSION) ?: $config['ext'];
+        $filename  = $type === 'ICON'
+            ? "ICON_" . pathinfo($url, PATHINFO_FILENAME)
+            : "{$type}_{$tagid}";
+
+        $media = $shopwareApi->upload_media_by_url($url, $mediaFolderId, $filename, $extension, $sw_force);
+        $mediaMapping[$type] = $media['mediaId'] ?? null;
     }
 
-    Logger::logGlobal("shopware final for product $tagid", $mediaMapping, Logger::LEVEL_VERBOSE);
+    // ============================================================
+    // 🏁 Update Product in Shopware
+    // ============================================================
+    Logger::logGlobal("Shopware final for product $tagid", $mediaMapping, Logger::LEVEL_VERBOSE);
 
-    // ---------------------------
-    // Update Produkt
     $shopwareApi->update_product_eprel_data(
         $tagid,
         $mediaMapping['ENERGYLABEL'],
@@ -275,6 +295,63 @@ foreach ($cache as $tagid => $values) {
     );
 }
 
+
+
+
+
+
+
+/*
+    Shopmanager product energy label sync
+*/
+
+Logger::logGlobal("---10. Shopmanager upload");
+
+$sm_force = false;
+
+foreach ($cache as $tagid => $values) {
+
+    // Skip if no energy label in cache
+    if (empty($values['ENERGYLABEL_'.$tagid]['url'] ?? null)) {
+        Logger::logGlobal("No cached ENERGYLABEL for $tagid, skipping...");
+        continue;
+    }
+
+    // Check if product already has energy label in Shopmanager
+    $smProduct = $shopmanagerApi->get_single_product($tagid);
+
+    if(trim($smProduct['number']) == '') {
+        Logger::logGlobal("Shopmanager product $tagid: 99 number not found on lookup. Cannot upload eprel files");
+        continue;
+    }
+
+    // Energy label not set → upload from cache
+    $energyLabelUrl = $values['ENERGYLABEL_'.$tagid]['url'];
+    if($energyLabelUrl != null && trim($energyLabelUrl) != ''){
+        if (!$sm_force && !empty($smProduct) && !empty($smProduct['energyLabel'] ?? null)) {
+            Logger::logGlobal("Shopmanager product $tagid already has an energy label, skipping upload.");
+        }else{
+            Logger::logGlobal("Uploading ENERGYLABEL for $tagid to Shopmanager → $energyLabelUrl");
+            $shopmanagerApi->uploadEnergyLabel($smProduct['number'], $energyLabelUrl);
+        }
+    }else{
+        Logger::logGlobal("Shopmanager energylabel not found in cache for $tagid, skipping upload.");
+    }
+
+    // Datasheet not set → upload from cache
+    $datasheetUrl = $values['DATASHEET_'.$tagid]['url'];
+    if($datasheetUrl != null && trim($datasheetUrl) != ''){
+        if (!$sm_force && !empty($smProduct) && !empty($smProduct['energyDatasheet'] ?? null)) {
+            Logger::logGlobal("Shopmanager product $tagid already has an datasheet, skipping upload.");
+        }else{
+            Logger::logGlobal("Uploading DATASHEET for $tagid to Shopmanager → $energyLabelUrl");
+            $shopmanagerApi->uploadDataSheet($smProduct['number'], $datasheetUrl);
+        }
+    }else{
+        Logger::logGlobal("Shopmanager datasheet not found in cache for $tagid, skipping upload.");
+    }
+    
+}
 
 
 
