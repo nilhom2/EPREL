@@ -14,18 +14,25 @@ use nh_connectors\ConnectorFactory;
 use nh_connectors\Utils\Logger;
 
 use function nh_connectors\sql;
+use function nh_connectors\Utils\purgeDirectory;
+
+ini_set('memory_limit', '4G');
 
 /*
-    null to deactivate
+    DEBUG
 */
-$debug_one_tagid = "A1000549610";
-
+$debug_one_tagid = null; // null to deactivate
+$skip_eprel_sql = false;
+$sw_force = false;
+$sm_force = false;
+$ak_force = true;
 
 /*
-    INITIALIZE
+    INIT
 */
-Logger::enableFileLogging();
-Logger::setLogLevel(2);
+Logger::setFileForLevel(Logger::LEVEL_IMPORTANT, 'run_important.log');
+Logger::setFileForLevel(Logger::LEVEL_ERROR, 'run_important.log');
+Logger::setFileForLevel('all', 'run.log');
 
 $eprelApi = ConnectorFactory::createEprel();
 $akeneoApi = ConnectorFactory::createAkeneo();
@@ -35,34 +42,70 @@ $shopmanagerApi = ConnectorFactory::createShopmanager();
 /*
     START
 */
-Logger::logGlobal("EPREL sync script started");
+Logger::logProcessStep("START");
 
-Logger::logGlobal("---1. Download EPREL data");
-// eprel_download_data($eprelApi, $EPREL_PRODUCT_GROUPS_ARRAY, $zip_basepath, $sleep_between_eprel_api_calls);
+if($skip_eprel_sql) goto skip_eprel_sql;
 
-Logger::logGlobal("---2. Process EPREL data");
-// eprel_process_data($zip_basepath, $keep_columns);
+Logger::logProcessStep("Download EPREL data");
+eprel_download_zip_data($eprelApi, $EPREL_PRODUCT_GROUPS_ARRAY, $zip_basepath, $sleep_between_eprel_api_calls);
 
-Logger::logGlobal("---3. Push EPREL data to SQL");
-// eprel_push_to_sql($zip_basepath);
+Logger::logProcessStep("Process EPREL data");
+eprel_process_zip_data($zip_basepath, $keep_columns);
 
-Logger::logGlobal("---4. exec Prozessdaten.dbo.EPREL_update;");
-// sql('low')->runSQL("exec Prozessdaten.dbo.EPREL_update;");
+Logger::logProcessStep("Push EPREL data to SQL");
+eprel_push_to_sql($zip_basepath);
 
-$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber" . ($debug_one_tagid ?  " WHERE TAGID = '$debug_one_tagid'" : ""));
+Logger::logProcessStep("exec Prozessdaten.dbo.EPREL_update;");
+sql('low')->runSQL("exec Prozessdaten.dbo.EPREL_update;");
 
+skip_eprel_sql:
+
+$product_data_arr = sql('low')->runSQL("SELECT top 10 * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber" . ($debug_one_tagid ?  " WHERE TAGID = '$debug_one_tagid'" : ""));
 if (empty($product_data_arr)) {
-    Logger::logGlobal("No products found in the database. Exiting...");
+    Logger::logImportant("No products found in the database. Exiting...");
     exit();
 }
 
-// --- Product Files Download --- //
-Logger::logGlobal("---5. Download product files");
+Logger::logProcessStep("Download EPREL product files");
+function is_first_saturday_of_month(?\DateTime $date = null) {
+    $date ??= new \DateTime(); 
+    if ((int)$date->format('N') !== 6) return false;
+    return (int)$date->format('j') <= 7;
+}
 $redownload = is_first_saturday_of_month();
-if ($redownload) Logger::logGlobal("First Saturday of the month: redownloading all data.");
-eprel_download_product_files($eprelApi, $product_data_arr, $redownload);
+if ($redownload) {
+    Logger::logImportant("First Saturday of the month: redownloading all data.");
+    purgeDirectory($basepath.'\\productFiles\\');
+}
 
-Logger::logGlobal("---6. EPREL data -> Akeneo");
+foreach ($product_data_arr as $row) {
+    $regNum = $row["EprelRegistrationNumber"];
+    $energyIconFilename = $row["EnergyIconFilename"];
+
+    // Energy label
+    $eprelApi->downloadEnergyLabel($regNum, [
+        'fileOutput' => [
+            'folderPath' => $basepath.'\\productFiles\\'.$regNum
+        ]
+    ]);
+
+    // Datasheet
+    $eprelApi->downloadDatasheet($regNum, [
+        'fileOutput' => [
+            'folderPath' => $basepath.'\\productFiles\\'.$regNum
+        ]
+    ]);
+
+    // Energy icon
+    $eprelApi->downloadEnergyIcon($regNum, [
+        'fileOutput' => [
+            'folderPath' => $basepath.'/energyicons',
+            'filename' => str_replace(".svg", "", $energyIconFilename)
+        ]
+    ]);
+}
+
+Logger::logProcessStep("EPREL data -> Akeneo");
 $cache = [];
 foreach ($product_data_arr as $row) {
     $tagid = $row["TAGID"];
@@ -82,13 +125,13 @@ foreach ($product_data_arr as $row) {
 
     // Upload nur durchführen, wenn Datei existiert
     if ($energyLabelUrl) {
-        $akeneoApi->uploadEnergyLabel($tagid, $eprelRegNum, $eprelCategory);
+        $akeneoApi->uploadEnergyLabel($tagid, $eprelRegNum, $eprelCategory, $ak_force);
     }
     if ($datasheetUrl) {
-        $akeneoApi->uploadDatasheet($tagid, $eprelRegNum, $eprelCategory);
+        $akeneoApi->uploadDatasheet($tagid, $eprelRegNum, $eprelCategory, $ak_force);
     }
     if ($energyIconUrl) {
-        $akeneoApi->uploadEnergyIcon($energyicon_filename);
+        $akeneoApi->uploadEnergyIcon($energyicon_filename, $ak_force);
     }
 
     // Cache
@@ -98,11 +141,8 @@ foreach ($product_data_arr as $row) {
         'ICON_'.str_replace("-", "_", str_replace(".svg", "", $energyicon_filename)) => ['url' => $energyIconUrl]
     ];
 
-    Logger::logGlobal("Processed product $tagid");
+    Logger::logNormal("Processed product $tagid");
 }
-
-
-
 
 
 $energyIconMap = [
@@ -118,32 +158,32 @@ $energyIconMap = [
 ];
 
 
-Logger::logGlobal("---7. Shopmanager -> Akeneo");
+Logger::logProcessStep("Shopmanager -> Akeneo");
 
 $sm_products = sql('low')->runSQL("SELECT * FROM [1WS].[dbo].[SM_Produkte] WHERE (ISNULL(energyLabel, '') != '' OR ISNULL(energyDatasheet, '') != '')" . ($debug_one_tagid ?  " AND pimIdentifier = '$debug_one_tagid'" : ""));
 
 if (!empty($sm_products)) {
-    Logger::logGlobal("Found " . count($sm_products) . " products to patch to Akeneo.");
+    Logger::logImportant("Found " . count($sm_products) . " products to patch to Akeneo.");
 
     foreach ($sm_products as $row) {
         $tagid = trim($row['pimIdentifier'] ?? $row['TAGID'] ?? '');
 
         if ($tagid === '') {
-            Logger::logGlobal("Skipping product with missing TAGID/pimIdentifier", [], Logger::LEVEL_VERBOSE);
+            Logger::logImportant("Skipping product with missing TAGID/pimIdentifier", [], Logger::LEVEL_VERBOSE);
             continue;
         }
 
         $energyLabelUrl = trim($row['energyLabel'] ?? '');
         $datasheetUrl   = trim($row['energyDatasheet'] ?? '');
 
-        Logger::logGlobal("Processing SM product $tagid", [
+        Logger::logVerbose("Processing SM product $tagid", [
             'energyLabel' => $energyLabelUrl,
             'datasheet'   => $datasheetUrl
-        ], Logger::LEVEL_VERBOSE);
+        ]);
 
         // --- Akeneo upload ---
         if ($energyLabelUrl !== '') {
-            Logger::logGlobal("Uploading ENERGYLABEL for $tagid", [], Logger::LEVEL_VERBOSE);
+            Logger::logVerbose("Uploading ENERGYLABEL for $tagid", [], Logger::LEVEL_VERBOSE);
             $akeneoApi->uploadEnergyLabel(
                 $tagid,          // TAGID / product identifier
                 '',              // EPREL registration number not needed for ShopManager
@@ -154,7 +194,7 @@ if (!empty($sm_products)) {
         }
 
         if ($datasheetUrl !== '') {
-            Logger::logGlobal("Uploading DATASHEET for $tagid", [], Logger::LEVEL_VERBOSE);
+            Logger::logVerbose("Uploading DATASHEET for $tagid", [], Logger::LEVEL_VERBOSE);
             $akeneoApi->uploadDatasheet(
                 $tagid,
                 '', 
@@ -171,16 +211,16 @@ if (!empty($sm_products)) {
         }
 
         // Cache
-        $cache[$tagid] = array_merge($cache[$tagid], [
+        $cache[$tagid] = array_merge($cache[$tagid] ?? [], [
             'ENERGYLABEL_SM_'.$tagid => ['url' => $energyLabelUrl],
             'DATASHEET_SM_'.$tagid   => ['url' => $datasheetUrl],
             'ICON_SM_'.str_replace("-", "_", str_replace(".svg", "", $energyicon_filename)) => ['url' => $energyIconUrl]
         ]);
 
-        Logger::logGlobal("Patched SM product $tagid to Akeneo.");
+        Logger::logImportant("Patched SM product $tagid to Akeneo.");
     }
 } else {
-    Logger::logGlobal("No SM_Produkte with energyLabel or datasheet found.");
+    Logger::logImportant("No SM_Produkte with energyLabel or datasheet found.");
 }
 
 
@@ -193,26 +233,40 @@ if (!empty($sm_products)) {
     muss alles aufeinmal da akeneo sonst die anderen einträge löscht
 */
 
-Logger::logGlobal("---8. Akeneo product asset association");
+Logger::logProcessStep("Akeneo product asset association");
 
 foreach ($cache as $tagid => $values) {
     // Filter nur die Einträge mit einer gültigen URL
     $filteredValues = [];
     foreach ($values as $key => $data) {
-        if (!empty(trim($data['url'] ?? ''))) {
+        if (!empty(trim($data['url'] ?? '')) && !str_starts_with($key, 'ICON_SM')) {
             $filteredValues[] = $key; // Key als Wert verwenden
         }
     }
 
     if (!empty($filteredValues)) {
-        $akeneoApi->fillProductAssetCollection(
-            'cnsc_energylabel',
-            $tagid,
-            $filteredValues
+        Logger::logVerbose(
+            "Filling Akeneo asset collection for product $tagid",
+            ['collection' => 'cnsc_energylabel', 'values' => $filteredValues]
         );
+
+        try {
+            $akeneoApi->fillProductAssetCollection(
+                'cnsc_energylabel',
+                $tagid,
+                $filteredValues
+            );
+            Logger::logImportant("fillProductAssetCollection finished for $tagid");
+        } catch (Exception $e) {
+            Logger::logError("fillProductAssetCollection failed for $tagid", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            Logger::logError("fillProductAssetCollection failed for $tagid, cache = ", $cache);
+        }
     }
 
-    Logger::logGlobal("cache for product $tagid", $values, Logger::LEVEL_VERBOSE);
+    Logger::logVerbose("cache for product $tagid", $values, Logger::LEVEL_VERBOSE);
 }
 
 
@@ -221,9 +275,8 @@ foreach ($cache as $tagid => $values) {
     Shopware Upload
 */  
 
-Logger::logGlobal("---9. Shopware media upload and product association");
+Logger::logProcessStep("Shopware media upload and product association");
 
-$sw_force = true;
 $mediaFolderId = "308252dc56fe4b5c96ddb4bfd64e5ec0";
 
 foreach ($cache as $tagid => $values) {
@@ -285,7 +338,7 @@ foreach ($cache as $tagid => $values) {
     // ============================================================
     // 🏁 Update Product in Shopware
     // ============================================================
-    Logger::logGlobal("Shopware final for product $tagid", $mediaMapping, Logger::LEVEL_VERBOSE);
+    Logger::logVerbose("Shopware final for product $tagid", $mediaMapping);
 
     $shopwareApi->update_product_eprel_data(
         $tagid,
@@ -305,15 +358,12 @@ foreach ($cache as $tagid => $values) {
     Shopmanager product energy label sync
 */
 
-Logger::logGlobal("---10. Shopmanager upload");
-
-$sm_force = false;
-
+Logger::logProcessStep("Shopmanager upload");
 foreach ($cache as $tagid => $values) {
 
     // Skip if no energy label in cache
     if (empty($values['ENERGYLABEL_'.$tagid]['url'] ?? null)) {
-        Logger::logGlobal("No cached ENERGYLABEL for $tagid, skipping...");
+        Logger::logImportant("No cached ENERGYLABEL for $tagid, skipping...");
         continue;
     }
 
@@ -321,7 +371,7 @@ foreach ($cache as $tagid => $values) {
     $smProduct = $shopmanagerApi->get_single_product($tagid);
 
     if(trim($smProduct['number']) == '') {
-        Logger::logGlobal("Shopmanager product $tagid: 99 number not found on lookup. Cannot upload eprel files");
+        Logger::logImportant("Shopmanager product $tagid: 99 number not found on lookup. Cannot upload eprel files");
         continue;
     }
 
@@ -329,45 +379,29 @@ foreach ($cache as $tagid => $values) {
     $energyLabelUrl = $values['ENERGYLABEL_'.$tagid]['url'];
     if($energyLabelUrl != null && trim($energyLabelUrl) != ''){
         if (!$sm_force && !empty($smProduct) && !empty($smProduct['energyLabel'] ?? null)) {
-            Logger::logGlobal("Shopmanager product $tagid already has an energy label, skipping upload.");
+            Logger::logImportant("Shopmanager product $tagid already has an energy label, skipping upload.");
         }else{
-            Logger::logGlobal("Uploading ENERGYLABEL for $tagid to Shopmanager → $energyLabelUrl");
+            Logger::logImportant("Uploading ENERGYLABEL for $tagid to Shopmanager → $energyLabelUrl");
             $shopmanagerApi->uploadEnergyLabel($smProduct['number'], $energyLabelUrl);
         }
     }else{
-        Logger::logGlobal("Shopmanager energylabel not found in cache for $tagid, skipping upload.");
+        Logger::logImportant("Shopmanager energylabel not found in cache for $tagid, skipping upload.");
     }
 
     // Datasheet not set → upload from cache
     $datasheetUrl = $values['DATASHEET_'.$tagid]['url'];
     if($datasheetUrl != null && trim($datasheetUrl) != ''){
         if (!$sm_force && !empty($smProduct) && !empty($smProduct['energyDatasheet'] ?? null)) {
-            Logger::logGlobal("Shopmanager product $tagid already has an datasheet, skipping upload.");
+            Logger::logImportant("Shopmanager product $tagid already has an datasheet, skipping upload.");
         }else{
-            Logger::logGlobal("Uploading DATASHEET for $tagid to Shopmanager → $energyLabelUrl");
+            Logger::logImportant("Uploading DATASHEET for $tagid to Shopmanager → $energyLabelUrl");
             $shopmanagerApi->uploadDataSheet($smProduct['number'], $datasheetUrl);
         }
     }else{
-        Logger::logGlobal("Shopmanager datasheet not found in cache for $tagid, skipping upload.");
+        Logger::logImportant("Shopmanager datasheet not found in cache for $tagid, skipping upload.");
     }
     
 }
 
 
-
-
-
-
-
-function is_first_saturday_of_month(?\DateTime $date = null): bool
-{
-    $date ??= new \DateTime(); // Use today if no date is provided
-
-    // Check if the day is Saturday
-    if ((int)$date->format('N') !== 6) {
-        return false;
-    }
-
-    // Check if it's the first Saturday (day 1–7 of the month)
-    return (int)$date->format('j') <= 7;
-}
+Logger::logProcessStep("STOP");
