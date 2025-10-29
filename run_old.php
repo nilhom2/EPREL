@@ -18,14 +18,29 @@ use function nh_connectors\Utils\purgeDirectory;
 
 ini_set('memory_limit', '4G');
 
+function is_first_saturday_of_month(?\DateTime $date = null) {
+    $date ??= new \DateTime(); 
+    if ((int)$date->format('N') !== 6) return false;
+    return (int)$date->format('j') <= 7;
+}
+
 /*
-    DEBUG
+    DEBUG / Settings
 */
-$debug_one_tagid = null; // null to deactivate
+
 $skip_eprel_sql = false;
+
 $sw_force = false;
 $sm_force = false;
 $ak_force = true;
+
+$eprel_productfiles_redownload = is_first_saturday_of_month();
+
+$debug_one_tagid = null; // null to deactivate
+if(!ISNULL($debug_one_tagid)) {
+    $skip_eprel_sql = true;
+    $eprel_productfiles_redownload = true;
+}
 
 /*
     INIT
@@ -60,20 +75,14 @@ sql('low')->runSQL("exec Prozessdaten.dbo.EPREL_update;");
 
 skip_eprel_sql:
 
-$product_data_arr = sql('low')->runSQL("SELECT top 10 * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber" . ($debug_one_tagid ?  " WHERE TAGID = '$debug_one_tagid'" : ""));
+$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber" . ($debug_one_tagid ?  " WHERE TAGID = '$debug_one_tagid'" : ""));
 if (empty($product_data_arr)) {
     Logger::logImportant("No products found in the database. Exiting...");
     exit();
 }
 
 Logger::logProcessStep("Download EPREL product files");
-function is_first_saturday_of_month(?\DateTime $date = null) {
-    $date ??= new \DateTime(); 
-    if ((int)$date->format('N') !== 6) return false;
-    return (int)$date->format('j') <= 7;
-}
-$redownload = is_first_saturday_of_month();
-if ($redownload) {
+if ($eprel_productfiles_redownload) {
     Logger::logImportant("First Saturday of the month: redownloading all data.");
     purgeDirectory($basepath.'\\productFiles\\');
 }
@@ -125,13 +134,13 @@ foreach ($product_data_arr as $row) {
 
     // Upload nur durchführen, wenn Datei existiert
     if ($energyLabelUrl) {
-        $akeneoApi->uploadEnergyLabel($tagid, $eprelRegNum, $eprelCategory, $ak_force);
+        $akeneoApi->uploadEnergyLabel($tagid, $eprelRegNum, $eprelCategory, 'eprel', $energyLabelUrl, $ak_force);
     }
     if ($datasheetUrl) {
-        $akeneoApi->uploadDatasheet($tagid, $eprelRegNum, $eprelCategory, $ak_force);
+        $akeneoApi->uploadDatasheet($tagid, $eprelRegNum, $eprelCategory, 'eprel', $datasheetUrl, $ak_force);
     }
     if ($energyIconUrl) {
-        $akeneoApi->uploadEnergyIcon($energyicon_filename, $ak_force);
+        $akeneoApi->uploadEnergyIcon($energyicon_filename, 'eprel', $energyIconUrl, $ak_force);
     }
 
     // Cache
@@ -189,7 +198,8 @@ if (!empty($sm_products)) {
                 '',              // EPREL registration number not needed for ShopManager
                 '',              // EPREL category not needed
                 'shopmanager',   // source
-                $energyLabelUrl  // use the URL from ShopManager
+                $energyLabelUrl,  // use the URL from ShopManager
+                $ak_force
             );
         }
 
@@ -200,7 +210,8 @@ if (!empty($sm_products)) {
                 '', 
                 '',
                 'shopmanager',
-                $datasheetUrl
+                $datasheetUrl,  // use the URL from ShopManager
+                $ak_force
             );
         }
 
@@ -322,17 +333,19 @@ foreach ($cache as $tagid => $values) {
         'ICON'        => ['primary' => $urls['ICON_SM'],        'fallback' => $urls['ICON'],        'ext' => 'svg'],
     ];
 
+    Logger::logVerbose("Shopware uploaddTargets= ",$uploadTargets);
+
     foreach ($uploadTargets as $type => $config) {
         $url = $config['primary'] ?: $config['fallback'];
-        if (!$url) continue;
+        if ($url){
+            $extension = pathinfo($url, PATHINFO_EXTENSION) ?: $config['ext'];
+            $filename  = $type === 'ICON'
+                ? "ICON_" . pathinfo($url, PATHINFO_FILENAME)
+                : "{$type}_{$tagid}";
 
-        $extension = pathinfo($url, PATHINFO_EXTENSION) ?: $config['ext'];
-        $filename  = $type === 'ICON'
-            ? "ICON_" . pathinfo($url, PATHINFO_FILENAME)
-            : "{$type}_{$tagid}";
-
-        $media = $shopwareApi->upload_media_by_url($url, $mediaFolderId, $filename, $extension, $sw_force);
-        $mediaMapping[$type] = $media['mediaId'] ?? null;
+            $media = $shopwareApi->upload_media_by_url($url, $mediaFolderId, $filename, $extension, $sw_force);
+            $mediaMapping[$type] = $media['mediaId'] ?? null;
+        }
     }
 
     // ============================================================
