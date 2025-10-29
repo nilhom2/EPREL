@@ -36,8 +36,8 @@ $ak_force = true;
 
 $eprel_productfiles_redownload = is_first_saturday_of_month();
 
-$debug_one_tagid = "A1000295305"; // null to deactivate
-if($debug_one_tagid) {
+$debug_one_tagid = null; // null to deactivate
+if(!ISNULL($debug_one_tagid)) {
     $skip_eprel_sql = true;
     $eprel_productfiles_redownload = true;
 }
