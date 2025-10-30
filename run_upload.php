@@ -18,8 +18,10 @@ ini_set('memory_limit', '4G');
     DEBUG
 */
 $debug_one_tagid = null; // null to deactivate
-$sw_force = false;
+
 $sm_force = false;
+
+$sw_force = true;
 $ak_force = true;
 
 /*
@@ -37,6 +39,14 @@ $shopmanagerApi = ConnectorFactory::createShopmanager();
     START
 */
 Logger::logProcessStep("START - run_upload");
+
+$product_data_arr = sql('low')->runSQL("SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber" . ($debug_one_tagid ?  " WHERE TAGID = '$debug_one_tagid'" : ""));
+if (empty($product_data_arr)) {
+    Logger::logImportant("No products found in the database. Exiting...");
+    exit();
+}
+
+$ak_cache = [];
 
 Logger::logProcessStep("EPREL data -> Akeneo");
 $cache = [];
@@ -57,14 +67,17 @@ foreach ($product_data_arr as $row) {
     $energyIconUrl  = file_exists($energyIconLocal)  ? "$public_url_energyicons_basepath/$energyicon_filename"         : null;
 
     // Upload nur durchführen, wenn Datei existiert
-    if ($energyLabelUrl) {
-        $akeneoApi->uploadEnergyLabel($tagid, $eprelRegNum, $eprelCategory, $ak_force);
+    if ($energyLabelUrl && !in_array("el_$tagid", $ak_cache)) {
+        $akeneoApi->uploadEnergyLabel($tagid, $eprelRegNum, $eprelCategory, 'eprel', null, $ak_force);
+        $ak_cache[] = "el_$tagid";
     }
-    if ($datasheetUrl) {
-        $akeneoApi->uploadDatasheet($tagid, $eprelRegNum, $eprelCategory, $ak_force);
+    if ($datasheetUrl && !in_array("ds_$tagid", $ak_cache)) {
+        $akeneoApi->uploadDatasheet($tagid, $eprelRegNum, $eprelCategory, 'eprel', null, $ak_force);
+        $ak_cache[] = "ds_$tagid";
     }
-    if ($energyIconUrl) {
-        $akeneoApi->uploadEnergyIcon($energyicon_filename, $ak_force);
+    if ($energyIconUrl && !in_array($energyicon_filename, $ak_cache)) {
+        $akeneoApi->uploadEnergyIcon($energyicon_filename, 'eprel', null, $ak_force);
+        $ak_cache[] = $energyicon_filename;
     }
 
     // Cache
@@ -74,16 +87,16 @@ foreach ($product_data_arr as $row) {
         'ICON_'.str_replace("-", "_", str_replace(".svg", "", $energyicon_filename)) => ['url' => $energyIconUrl]
     ];
 
-    Logger::logNormal("Processed product $tagid");
+    Logger::logImportant("Processed product $tagid");
 }
 
 
 $energyIconMap = [
     'A'   => 'A-Left-DarkGreen-WithAGScale.svg',
     'A+'  => 'AP-Left-MediumGreen-WithAPPEScale.svg',
-    'A++' => 'APP-Left-DarkGreen-WithAPPPPScale.svg',
+    'A++' => 'APP-Left-DarkGreen-WithAPPEScale.svg',
     'B'   => 'B-Left-MediumGreen-WithAGScale.svg',
-    'C'   => 'C-Left-LightOrange-WithAGScale.svg',
+    'C'   => 'C-Left-LightGreen-WithAGScale.svg',
     'D'   => 'D-Left-Yellow-WithAGScale.svg',
     'E'   => 'E-Left-LightOrange-WithAGScale.svg',
     'F'   => 'F-Left-DarkOrange-WithAGScale.svg',
@@ -137,11 +150,25 @@ if (!empty($sm_products)) {
             );
         }
 
-        $rating = $row['energyEek2020'] ?? $row['energyEek']; // fallback
+        $rating = $row['energyEek2020'];
+
+        if (empty(trim($rating)) || !isset($energyIconMap[$rating])){
+            $rating = $row['energyEek'];
+        }
+
         if (!empty($rating) && isset($energyIconMap[$rating])) {
             $energyicon_filename = $energyIconMap[$rating];
-            $energyIconUrl = $public_url_energyicons_basepath . $energyicon_filename;
+            $energyIconUrl = $public_url_energyicons_basepath ."/". $energyicon_filename;
         }
+
+        Logger::logVerbose("SM product Details Energyicon $tagid", [
+            'rating' => $rating,
+            'energyIconMap[$rating]' => isset($energyIconMap[$rating]) ? $energyIconMap[$rating] : "",
+            'energyicon_filename' => $energyicon_filename,
+            'energyIconUrl'   => $energyIconUrl,
+            "row[energyEek2020]" => $row['energyEek2020'] ?? "",
+            "row[energyEek]" => $row['energyEek'] ?? ""
+        ]);
 
         // Cache
         $cache[$tagid] = array_merge($cache[$tagid] ?? [], [

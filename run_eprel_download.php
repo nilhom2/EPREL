@@ -57,31 +57,39 @@ if (empty($product_data_arr)) {
     exit();
 }
 
+$sleep_ms = 1000;
+
 foreach ($product_data_arr as $row) {
-    $regNum = $row["EprelRegistrationNumber"];
+    $regNum = $row["EprelRegistrationNumber"];  
     $energyIconFilename = $row["EnergyIconFilename"];
 
     // Energy label
-    $eprelApi->downloadEnergyLabel($regNum, [
+    $res = $eprelApi->downloadEnergyLabel($regNum, [
         'fileOutput' => [
             'folderPath' => $basepath.'\\productFiles\\'.$regNum
         ]
     ]);
+
+    if(!isset($res['skipped']) || $res['skipped'] == false) sleep_ms($sleep_ms);
 
     // Datasheet
-    $eprelApi->downloadDatasheet($regNum, [
+    $res = $eprelApi->downloadDatasheet($regNum, [
         'fileOutput' => [
             'folderPath' => $basepath.'\\productFiles\\'.$regNum
         ]
     ]);
 
+    if(!isset($res['skipped']) || $res['skipped'] == false) sleep_ms($sleep_ms);
+
     // Energy icon
-    $eprelApi->downloadEnergyIcon($regNum, [
+    $res = $eprelApi->downloadEnergyIcon($regNum, [
         'fileOutput' => [
             'folderPath' => $basepath.'/energyicons',
             'filename' => str_replace(".svg", "", $energyIconFilename)
         ]
     ]);
+
+    if(!isset($res['skipped']) || $res['skipped'] == false) sleep_ms($sleep_ms);
 }
 
 Logger::logProcessStep("FINISHED - run_eprel_download");

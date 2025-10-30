@@ -24,7 +24,8 @@ $basepath = is_dir($basepath) ? $basepath : __DIR__."/EPREL_Testdaten";
 
 $EPREL_PRODUCT_GROUPS_ARRAY = [
     "electronicdisplays",
-    "televisions"
+    "televisions",
+    "smartphonestablets20231669"
 ];
 
 $zip_basepath = "$basepath\\zips";
@@ -35,9 +36,8 @@ $public_url_basepath = "https://webapi.tarox.de/webservices/eprel";
 $public_url_energyicons_basepath = "$public_url_basepath/energyicons";
 $public_url_productFiles_basepath = "$public_url_basepath/productFiles";
 
-// FIRST NUMBER IS SECONDS (converts for usleep)
-$sleep_between_eprel_api_calls = 0.2 * 1000000;
-$sleep_between_akeneo_api_calls = 0.5 * 1000000; 
+$sleep_between_eprel_api_calls = 1;
+$sleep_between_akeneo_api_calls = 1; 
 
 
 $keep_columns = [
