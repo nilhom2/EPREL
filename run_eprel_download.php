@@ -36,10 +36,11 @@ eprel_process_zip_data($zip_basepath, $keep_columns);
 Logger::logProcessStep("Push EPREL data to SQL");
 eprel_push_to_sql($zip_basepath);
 
-Logger::logProcessStep("exec Prozessdaten.dbo.EPREL_update;");
-sql('low')->runSQL("exec Prozessdaten.dbo.EPREL_update;");
+Logger::logProcessStep("exec Prozessdaten.dbo.EPREL_update_JM;");
+sql('low')->runSQL("exec Prozessdaten.dbo.EPREL_update_JM;");
 
 Logger::logProcessStep("Download EPREL product files");
+
 function is_first_saturday_of_month(?\DateTime $date = null) {
     $date ??= new \DateTime(); 
     if ((int)$date->format('N') !== 6) return false;

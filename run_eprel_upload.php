@@ -17,7 +17,7 @@ use function nh_connectors\sql;
 // ============================================================
 $CONFIG = [
     'debug_tagid' => null,  // Set to specific TAGID for debugging
-    'stop_after_product_count' => 10,
+    'stop_after_product_count' => null,
     'force' => [
         'shopmanager' => false,
         'shopware' => true,
@@ -120,16 +120,17 @@ Logger::logImportant("Summary", array_merge($stats, [
 // ============================================================
 
 function fetchProducts(?string $debugTagid): array {
-    $whereClause = $debugTagid ? " WHERE TAGID = '$debugTagid'" : "";
-    
+    $whereClause_eprel = $debugTagid ? " AND TAGID = '$debugTagid'" : "";
+    $whereClause_sm = $debugTagid ? " AND pimIdentifier = '$debugTagid'" : "";
+
     try {
         $eprelProducts = sql('low')->runSQL(
-            "SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber$whereClause"
+            "SELECT * FROM Prozessdaten.dbo.EPREL_tagID_to_EPRELRegistrationNumber WHERE TAGID != ''$whereClause_eprel order by tagid"
         );
         
         $smProducts = sql('low')->runSQL(
             "SELECT * FROM [1WS].[dbo].[SM_Produkte] 
-             WHERE (ISNULL(energyLabel, '') != '' OR ISNULL(energyDatasheet, '') != '')$whereClause"
+             WHERE (ISNULL(energyLabel, '') != '' OR ISNULL(energyDatasheet, '') != '')$whereClause_sm"
         );
         
         // Merge products by TAGID
@@ -165,6 +166,8 @@ function processProduct(array $product, $akeneoApi, $shopwareApi, $shopmanagerAp
     // 1. COLLECT FILE URLS
     // ============================================================
     $files = collectFileUrls($product, $energyIconMap);
+
+    Logger::logImportant("File URLs for $tagid", $files);
     
     // ============================================================
     // 2. UPLOAD TO AKENEO
@@ -172,7 +175,7 @@ function processProduct(array $product, $akeneoApi, $shopwareApi, $shopmanagerAp
     $akeneoAssets = [];
     
     // EPREL Files
-    if ($files['eprel']['energylabel']) {
+    if ($files['eprel']['energylabel']) {     
         if (uploadToAkeneo($akeneoApi, 'energyLabel', $tagid, $eprelRegNum, $eprelCategory, 'eprel', null, $config['force']['akeneo'])) {
             $akeneoAssets[] = "ENERGYLABEL_$tagid";
         }
@@ -185,7 +188,10 @@ function processProduct(array $product, $akeneoApi, $shopwareApi, $shopmanagerAp
     }
     
     if ($files['eprel']['icon']) {
-        uploadToAkeneo($akeneoApi, 'icon', $tagid, $eprelRegNum, $eprelCategory, 'eprel', null, $config['force']['akeneo'], $product['EnergyIconFilename']);
+        if (uploadToAkeneo($akeneoApi, 'icon', $tagid, $eprelRegNum, $eprelCategory, 'eprel', null, $config['force']['akeneo'], $product['EnergyIconFilename'])) {
+            // $akeneoAssets[] = "ICON_".str_replace('.svg', '', $product['EnergyIconFilename']);
+            $akeneoAssets[] = "ICON_".preg_replace('/\.svg$/', '', str_replace('-', '_', $product['EnergyIconFilename']));
+        }
     }
     
     // Shopmanager Files
@@ -229,6 +235,11 @@ function collectFileUrls(array $product, array $energyIconMap): array {
     $eprelRegNum = $product['EprelRegistrationNumber'] ?? '';
     $iconFilename = $product['EnergyIconFilename'] ?? '';
     $smData = $product['SM_DATA'] ?? null;
+
+    $elPath = "$productfiles_basepath/$eprelRegNum/energylabel_$eprelRegNum.png";
+    $dsPath = "$productfiles_basepath/$eprelRegNum/datasheet_$eprelRegNum.pdf";
+
+    Logger::logVerbose("collectFileUrls", ['eprelRegNum' => $eprelRegNum,'iconFilename' => $iconFilename,'elPath' => $elPath,'dsPath' => $dsPath ]);
     
     $files = [
         'eprel' => [
@@ -245,14 +256,12 @@ function collectFileUrls(array $product, array $energyIconMap): array {
     
     // EPREL files
     if ($eprelRegNum) {
-        $elPath = "$productfiles_basepath/$eprelRegNum/energylabel.png";
-        $dsPath = "$productfiles_basepath/$eprelRegNum/datasheet.pdf";
         
         if (file_exists($elPath)) {
-            $files['eprel']['energylabel'] = "$public_url_productFiles_basepath/$eprelRegNum/energylabel.png";
+            $files['eprel']['energylabel'] = "$public_url_productFiles_basepath/$eprelRegNum/energylabel_$eprelRegNum.png";
         }
         if (file_exists($dsPath)) {
-            $files['eprel']['datasheet'] = "$public_url_productFiles_basepath/$eprelRegNum/datasheet.pdf";
+            $files['eprel']['datasheet'] = "$public_url_productFiles_basepath/$eprelRegNum/datasheet_$eprelRegNum.pdf";
         }
     }
     
@@ -313,10 +322,11 @@ function uploadToShopware($api, string $tagid, array $files, array $config): voi
         'datasheet' => ['url' => $files['sm']['datasheet'] ?: $files['eprel']['datasheet'], 'ext' => 'pdf'],
         'icon' => ['url' => $files['sm']['icon'] ?: $files['eprel']['icon'], 'ext' => 'svg'],
     ];
+
+    Logger::logImportant("uploadToShopware for $tagid", $uploads);
     
     foreach ($uploads as $type => $data) {
         if (!$data['url']) continue;
-        
         try {
             $ext = pathinfo($data['url'], PATHINFO_EXTENSION) ?: $data['ext'];
             $filename = $type === 'icon' ? "ICON_" . pathinfo($data['url'], PATHINFO_FILENAME) : strtoupper($type) . "_$tagid";
@@ -353,8 +363,18 @@ function syncToShopmanager($api, string $tagid, array $files, bool $force): void
     $energyLabelUrl = $files['eprel']['energylabel'];
     $datasheetUrl = $files['eprel']['datasheet'];
     
+    if(isset($files['eprel']['icon']))
+    {
+        $icon_parts = explode("/",$files['eprel']['icon']);
+        $icon = $icon_parts[array_key_last($icon_parts)];
+        $energyLabelUrl .= '?label=ICON_' . $icon ;
+    }
+
     if (!$energyLabelUrl && !$datasheetUrl) {
-        Logger::logVerbose("No EPREL files to sync to Shopmanager for $tagid");
+        Logger::logImportant("No EPREL files to sync to Shopmanager for $tagid", [
+            'energyLabelUrl' => $energyLabelUrl,
+            'datasheetUrl' => $datasheetUrl
+        ]);
         return;
     }
     
@@ -372,12 +392,16 @@ function syncToShopmanager($api, string $tagid, array $files, bool $force): void
         if ($energyLabelUrl && ($force || empty($smProduct['energyLabel'] ?? ''))) {
             $api->uploadEnergyLabel($productNumber, $energyLabelUrl);
             Logger::logImportant("Uploaded energy label to Shopmanager for $tagid");
+        }else if (!empty($smProduct['energyLabel'] ?? '')) {
+            Logger::logImportant("Shopmanager hat schon energylabel, skipping upload...");
         }
         
         // Upload datasheet
         if ($datasheetUrl && ($force || empty($smProduct['energyDatasheet'] ?? ''))) {
             $api->uploadDataSheet($productNumber, $datasheetUrl);
             Logger::logImportant("Uploaded datasheet to Shopmanager for $tagid");
+        }else if (!empty($smProduct['energyDatasheet'] ?? '')) {
+            Logger::logImportant("Shopmanager hat schon datenblatt, skipping upload...");
         }
         
     } catch (Exception $e) {
